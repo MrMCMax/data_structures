@@ -163,4 +163,8 @@ public class MainProgrammingCompetition {
 		System.out.println("Average: " + stats.getAverage());
 		System.out.println("Standard deviation: " + std(data, stats));
 	}
+	
+	public static void binarySearch() {
+		int[] a = new int[52];
+	}
 }

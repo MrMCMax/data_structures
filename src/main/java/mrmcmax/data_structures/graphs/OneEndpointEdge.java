@@ -1,12 +1,12 @@
 package mrmcmax.data_structures.graphs;
 
 public class OneEndpointEdge {
-	public int v;
+	public int endVertex;
 	public int capacity;
 	public int reverseEdgeIndex;
 	
 	public OneEndpointEdge(int v) {
-		this.v = v;
+		this.endVertex = v;
 		this.capacity = -1;
 	}
 	
@@ -15,7 +15,7 @@ public class OneEndpointEdge {
 	}
 	
 	public OneEndpointEdge(int v, int capacity, int reverseEdgeIndex) {
-		this.v = v;
+		this.endVertex = v;
 		this.capacity = capacity;
 		this.reverseEdgeIndex = reverseEdgeIndex;
 	}

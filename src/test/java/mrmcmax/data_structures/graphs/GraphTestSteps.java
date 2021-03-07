@@ -19,9 +19,13 @@ public class GraphTestSteps {
 	
 	protected Graph graph;
 	
+	protected int[] distances;
+	protected int[] parents;
+	
 	@Given("a set of {int} vertices")
 	public void aSetOfVertices(Integer int1) {
 		vertices = int1;
+		graph = new Graph(vertices);
 	}
 	
 	@Given("the edges {string}")
@@ -36,7 +40,6 @@ public class GraphTestSteps {
 	
 	@When("the graph is built")
 	public void theGraphIsBuilt() {
-		graph = new Graph(vertices);
 		for (int i = 0; i < edges.length; i++) {
 			graph.addEdge(edges[i].u, edges[i].v);
 		}
@@ -59,6 +62,40 @@ public class GraphTestSteps {
 		int actualCount = graph.edgeCount(u, v);
 	    assertEquals(count, actualCount, "Expected " + count + " edges between vertices "
 	    		+ u + " and " + v + ", but found " + actualCount);
+	}
+	
+	/* DIJKSTRA'S ALGORITHM */
+	
+	@Given("the weighted edges {string}")
+	public void theWeightedEdges(String raw) {
+		String[] endpoints = raw.split(ENDPOINT_DELIMITER);
+		for (int i = 0; i < endpoints.length; i++) {
+			String[] edge = endpoints[i].split(EDGE_SEPARATOR);
+			graph.addEdge(Integer.parseInt(edge[0]), Integer.parseInt(edge[1]), Integer.parseInt(edge[2]));
+		}
+	}
+
+	@When("Dijkstras algorithm is run")
+	public void dijkstrasAlgorithmIsRun() {
+		graph.computeShortestPathsDijkstra(0);
+		distances = graph.getDistances();
+		parents = graph.getParents();
+	}
+
+	@Then("the distances are {string}")
+	public void theDistancesAre(String raw) {
+	    String[] expectedDistances = raw.split(" ");
+	    for (int i = 0; i < expectedDistances.length; i++) {
+	    	assertEquals(distances[i], Integer.parseInt(expectedDistances[i]), "Distances differ in Dijkstra's algorithm");
+	    }
+	}
+	
+	@Then("the parents are {string}")
+	public void theParentsAre(String raw) {
+	    String[] expectedParents = raw.split(" ");
+	    for (int i = 0; i < expectedParents.length; i++) {
+	    	assertEquals(parents[i], Integer.parseInt(expectedParents[i]), "Parent " + i + " differs in Dijkstra's algorithm");
+	    }
 	}
 }
 

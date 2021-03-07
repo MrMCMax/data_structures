@@ -78,13 +78,13 @@ public class ResidualGraph {
 			while (v_out != s) {
 				OneEndpointEdge e = bfsBacktrack[v_out];
 				bottleneck = Math.min(bottleneck, e.capacity);
-				v_out = e.v;
+				v_out = e.endVertex;
 			}
 
 			// update the network
 			v_out = t;
 			while (v_out != s) {
-				int v_in = bfsBacktrack[v_out].v;
+				int v_in = bfsBacktrack[v_out].endVertex;
 				
 				graph.get(v_in).merge(v_out, bottleneck, (old, flow) -> old - flow); // update forward
 				graph.get(v_out).merge(v_in, bottleneck, (old, flow) -> old + flow); // update backward

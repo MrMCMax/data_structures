@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Iterator;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import mrmcmax.data_structures.graphs.dijkstra.Dijkstra;
 
 public class GraphTestSteps {
 	
@@ -21,6 +24,8 @@ public class GraphTestSteps {
 	
 	protected int[] distances;
 	protected int[] parents;
+	
+	protected Dijkstra dijkstra;
 	
 	@Given("a set of {int} vertices")
 	public void aSetOfVertices(Integer int1) {
@@ -77,7 +82,7 @@ public class GraphTestSteps {
 
 	@When("Dijkstras algorithm is run")
 	public void dijkstrasAlgorithmIsRun() {
-		graph.computeShortestPathsDijkstra(0);
+		graph.dijkstra(0);
 		distances = graph.getDistances();
 		parents = graph.getParents();
 	}
@@ -97,5 +102,36 @@ public class GraphTestSteps {
 	    	assertEquals(parents[i], Integer.parseInt(expectedParents[i]), "Parent " + i + " differs in Dijkstra's algorithm");
 	    }
 	}
+	
+	/** DIJKSTRA INTERFACE */
+	
+	@When("Dijkstras algorithm is run with the basic interface")
+	public void dijkstrasAlgorithmIsRunWithTheBasicInterface() {
+		dijkstra = graph.dijkstraInterface(0);
+	}
+
+	@Then("the retrieved distances are {string}")
+	public void theRetrievedDistancesAre(String raw) {
+	    String[] expectedDistances = raw.split(" ");
+	    Iterator<Integer> distances = dijkstra.getDistances();
+	    for (int i = 0; i < expectedDistances.length; i++) {
+	    	assertEquals(distances.next(), Integer.parseInt(expectedDistances[i]), "Distances differ in Dijkstra's algorithm");
+	    }
+	}
+
+	@Then("the retrieved parents are {string}")
+	public void theRetrievedParentsAre(String raw) {
+	    String[] expectedParents = raw.split(" ");
+	    Iterator<Integer> parents = dijkstra.getParents();
+	    for (int i = 0; i < expectedParents.length; i++) {
+	    	assertEquals(parents.next(), Integer.parseInt(expectedParents[i]), "Parent " + i + " differs in Dijkstra's algorithm");
+	    }
+	}
+	
+	@When("Dijkstras algorithm is run with the binary heap interface")
+	public void dijkstrasAlgorithmIsRunWithTheBinaryHeapInterface() {
+		dijkstra = graph.dijkstraBinaryHeapInterface(0);
+	}
+
 }
 

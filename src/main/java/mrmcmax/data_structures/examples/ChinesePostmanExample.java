@@ -47,7 +47,7 @@ public class ChinesePostmanExample {
 			vertices[i] = i;
 		for (Integer source : oddDegreeVertices) {
 			System.out.println("Dijkstra from " + source + ":");
-			g.computeShortestPathsDijkstra(source);
+			g.dijkstra(source);
 			int[] distances = g.getDistances();
 			int[] parents = g.getParents();
 			System.out.println("Distances: ");

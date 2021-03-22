@@ -8,8 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Function;
 
+import mrmcmax.data_structures.graphs.dijkstra.BasicDijkstra;
+import mrmcmax.data_structures.graphs.dijkstra.Dijkstra;
+import mrmcmax.data_structures.graphs.dijkstra.BinaryHeapDijkstra;
 import mrmcmax.data_structures.linear.ArrayLimitQueue;
 import mrmcmax.data_structures.linear.EasyQueue;
 
@@ -17,6 +21,9 @@ public class Graph {
 	
 	protected List<ArrayList<OneEndpointEdge>> array;
 
+	protected int numVertices;
+	protected int numEdges;
+	
 	/* BFS */
 	protected Backtrack[] bfsBacktrack;			// First: v_in, Second: index
 	protected EasyQueue<Integer> q;
@@ -24,9 +31,6 @@ public class Graph {
 	/* DIJKSTRA */
 	private int[] distances;
 	private int[] parents;
-	
-	protected int numVertices;
-	protected int numEdges;
 	
 	public Graph(int vertices) {
 		numVertices = vertices;
@@ -86,6 +90,10 @@ public class Graph {
 		return numEdges / 2;
 	}
 	
+	public List<OneEndpointEdge> getAdjacencyList(int vertex) {
+		return array.get(vertex);
+	}
+	
 	public void setEdgeCapacity(int v_in, int v_out, int capacity) {
 		List<OneEndpointEdge> outEdges = array.get(v_in);
 		boolean found = false;
@@ -143,7 +151,7 @@ public class Graph {
 		return existsPathWithConditionBFS(s, t, (c) -> true);
 	}
 	
-	public boolean existsPathWithConditionBFS(int s, int t, Function<Integer, Boolean> labelCondition) {
+	public boolean existsPathWithConditionBFS(int s, int t, Function<OneEndpointEdge, Boolean> edgeCondition) {
 		boolean[] visited = new boolean[numVertices];
 		q.reset();
 		//Queue<Integer> q = new LinkedList<>();
@@ -154,9 +162,9 @@ public class Graph {
 			int v_in = q.poll();
 			List<OneEndpointEdge> adj = array.get(v_in);
 			for (int j = 0; j < adj.size(); j++) {
-				int v_out = adj.get(j).endVertex; 
-				int cap = adj.get(j).capacity;
-				if (labelCondition.apply(cap) && !visited[v_out]) {
+				OneEndpointEdge edge = adj.get(j);
+				int v_out = edge.endVertex;
+				if (edgeCondition.apply(edge) && !visited[v_out]) {
 					Backtrack back = new Backtrack(v_in, j);
 					bfsBacktrack[v_out] = back;
 					visited[v_out] = true;
@@ -172,7 +180,19 @@ public class Graph {
 		return false;
 	}
 	
-	public void computeShortestPathsDijkstra(int s) {
+	public Dijkstra dijkstraInterface(int s) {
+		Dijkstra d = new BasicDijkstra(this);
+		d.computeDijkstra(s);
+		return d;
+	}
+	
+	public Dijkstra dijkstraBinaryHeapInterface(int s) {
+		Dijkstra d = new BinaryHeapDijkstra(this);
+		d.computeDijkstra(s);
+		return d;
+	}
+	
+	public void dijkstra(int s) {
 		distances = new int[numVertices];
 		parents = new int[numVertices];
 		Arrays.fill(distances, Integer.MAX_VALUE);
@@ -208,6 +228,18 @@ public class Graph {
 				}
 			}
 		} while (!V.isEmpty());
+	}
+	
+	public void dijsktraLogN(int s) {
+		distances = new int[numVertices];
+		parents = new int[numVertices];
+		Arrays.fill(distances, Integer.MAX_VALUE);
+		Arrays.fill(parents, -1);
+		distances[s] = 0;
+		
+		TreeSet<Integer> tree = new TreeSet<>();
+		
+		
 	}
 
 	public int[] getDistances() {

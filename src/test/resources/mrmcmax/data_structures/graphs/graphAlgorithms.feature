@@ -45,6 +45,21 @@ Feature: Graph algorithms
 		When Dijkstras algorithm is run
 		Then the distances are "0 10 8 3 11"
 		And the parents are "-1 2 3 0 2"
+	
+	Scenario: Dijkstra Basic Interface
+		Given a set of 5 vertices
+		And the weighted edges "0 1 12,0 3 3,1 2 1,2 1 2,2 4 3,3 1 8,3 2 5,4 3 1"
+		When Dijkstras algorithm is run with the basic interface
+		Then the retrieved distances are "0 10 8 3 11"
+		And the retrieved parents are "-1 2 3 0 2"
+	
+	Scenario: Dijkstra Tree Interface
+		Given a set of 5 vertices
+		And the weighted edges "0 1 12,0 3 3,1 2 1,2 1 2,2 4 3,3 1 8,3 2 5,4 3 1"
+		When Dijkstras algorithm is run with the binary heap interface
+		Then the retrieved distances are "0 10 8 3 11"
+		And the retrieved parents are "-1 2 3 0 2"
+		
 #  @tag2
 #  Scenario Outline: Title of your scenario outline
 #    Given I want to write a step with <name>

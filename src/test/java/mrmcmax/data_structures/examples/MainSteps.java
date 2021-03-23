@@ -51,5 +51,15 @@ public class MainSteps {
 	public void theStatisticsForItsRuntimeArePrinted() {
 		
 	}
+	
+	@Given("Scaling algorithm")
+	public void scalingAlgorithm() {
+		MainProgrammingCompetition.setFlowAlgorithm(MainProgrammingCompetition.SCALING_EDMONDS_KARP);
+	}
+	
+	@Given("Dinics algorithm")
+	public void dinicsAlgorithm() {
+		MainProgrammingCompetition.setFlowAlgorithm(MainProgrammingCompetition.DINIC);
+	}
 }
 

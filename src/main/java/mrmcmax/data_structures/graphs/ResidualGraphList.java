@@ -97,8 +97,10 @@ public class ResidualGraphList extends Graph {
 			Arrays.fill(level, -1);		
 			level[s] = 0;
 			theresPath = false;
+			int maxDistance = Integer.MAX_VALUE;
 			while (!q.isEmpty()) {
 				int v_in = q.poll();
+				if (level[v_in] >= maxDistance) continue;
 				List<OneEndpointEdge> adj = array.get(v_in);
 				Iterator<OneEndpointEdge> it = adj.iterator();
 				for (int j = 0; j < adj.size(); j++) {
@@ -118,6 +120,7 @@ public class ResidualGraphList extends Graph {
 				}
 				if (v_in == t) {
 					theresPath = true;
+					maxDistance = level[t];
 				}
 			}
 			if (theresPath) {

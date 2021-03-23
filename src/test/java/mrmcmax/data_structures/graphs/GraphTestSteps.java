@@ -13,7 +13,7 @@ import mrmcmax.data_structures.graphs.dijkstra.Dijkstra;
 
 public class GraphTestSteps {
 	
-	private static final String ENDPOINT_DELIMITER = ",";
+	private static final String ENDPOINT_DELIMITER = ", ";
 	private static final String EDGE_SEPARATOR = " ";
 	
 	protected int vertices;

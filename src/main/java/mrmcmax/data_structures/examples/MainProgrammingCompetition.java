@@ -99,7 +99,7 @@ public class MainProgrammingCompetition {
 			buildTime = t2 - t1;
 			t1 = t2;
 			
-			int M = graph.ScalingAlgorithm(0, G + A + 1);
+			int M = graph.DinicAlgorithm(0, G + A + 1);
 			
 			t2 = System.currentTimeMillis();
 			flowTime = t2 - t1;

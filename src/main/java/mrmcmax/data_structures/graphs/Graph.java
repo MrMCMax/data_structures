@@ -252,11 +252,11 @@ public class Graph {
 	
 	protected static class Backtrack {
 		public int v_in;
-		public int index;
+		public int edgeIndex;
 		
 		public Backtrack(int v_in, int index) {
 			this.v_in = v_in;
-			this.index = index;
+			this.edgeIndex = index;
 		}
 	}
 	

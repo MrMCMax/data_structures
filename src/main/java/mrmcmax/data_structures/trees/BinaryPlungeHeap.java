@@ -30,8 +30,6 @@ public class BinaryPlungeHeap<Key extends Comparable<Key>> implements PlungePrio
 		array[size] = new Entry<Key>(key, value);
 		positions[value] = size;
 		refloat(size);
-		System.out.println(Arrays.toString(array));
-		System.out.println(Arrays.toString(positions));
 	}
 	
 	public Entry<Key> peekMin() {
@@ -46,8 +44,6 @@ public class BinaryPlungeHeap<Key extends Comparable<Key>> implements PlungePrio
 		if (size > 0)
 			plunge(1);
 		positions[min.getValue()] = -1;
-		System.out.println(Arrays.toString(array));
-		System.out.println(Arrays.toString(positions));
 		return min;
 	}
 	

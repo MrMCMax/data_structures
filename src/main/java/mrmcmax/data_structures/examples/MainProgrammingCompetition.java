@@ -25,6 +25,8 @@ public class MainProgrammingCompetition {
 	public static final int EDMONDS_KARP = 0;
 	public static final int SCALING_EDMONDS_KARP = 1;
 	public static final int DINIC = 2;
+	public static final int PUSH_RELABEL_1 = 3;
+	
 	private static int algorithm;
 
 	public static void main(String[] args) {
@@ -120,6 +122,8 @@ public class MainProgrammingCompetition {
 			case DINIC:
 				M = graph.DinicAlgorithm(0, G + A + 1);
 				break;
+			case PUSH_RELABEL_1:
+				M = graph.PushRelabel1Algorithm(0, G + A + 1);
 			}
 			t2 = System.currentTimeMillis();
 			flowTime = t2 - t1;

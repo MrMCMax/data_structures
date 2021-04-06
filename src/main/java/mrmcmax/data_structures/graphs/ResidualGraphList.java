@@ -9,8 +9,15 @@ import java.util.function.Function;
 public class ResidualGraphList extends Graph {
 
 	private int maxCap;
+	
+	//For Dinics
 	private int[] level;
 	private int[] next;
+	//For Push-relabel
+	protected int[] heights;
+	protected int[] excesses;
+	//For any
+	private int s;
 	private int t;
 
 	public ResidualGraphList(int n_people, int n_wifis) {
@@ -169,6 +176,94 @@ public class ResidualGraphList extends Graph {
 		return forwardFlow;
 	}
 
+	public int PushRelabel1Algorithm(int s, int t) {
+		return PushRelabel1Algorithm(s, t, false);
+	}
+	
+	protected int PushRelabel1Algorithm(int s, int t, boolean earlyStop) {
+		int maxFlow = 0;
+		initialize(s, t);
+		computeExcesses();
+		while (thereIsExcess()) {
+			int height = -1;
+			int maxHeight = -1;
+			for (int i = 1; i < numVertices; i++) {
+				if (excesses[i] == 0) continue;
+				if (heights[i] > height) {
+					height = heights[i];
+					maxHeight = i;
+				}
+			}
+			List<OneEndpointEdge> adj = array.get(maxHeight);
+			int i = 0;
+			while (i < adj.size()) {
+				OneEndpointEdge edge = adj.get(i);
+				if (edge.remainingCapacity() > 0 &&
+						heights[maxHeight] == (heights[edge.endVertex] + 1)) {
+					int delta = Math.min(excesses[maxHeight], edge.remainingCapacity());
+					edge.augment(delta);
+					array.get(edge.endVertex).get(edge.reverseEdgeIndex).decrement(delta);
+					break;
+				} else {
+					i++;
+				}
+			}
+			if (i == adj.size()) {
+				//relabel
+				heights[maxHeight]++;
+			}
+			if (earlyStop) break;
+			computeExcesses();
+		}
+		//Compute max flow
+		List<OneEndpointEdge> adj = array.get(s);
+		for (int i = 0; i < adj.size(); i++) {
+			maxFlow += adj.get(i).flow;
+		}
+		return maxFlow;
+	}
+	
+	protected void initialize(int s, int t) {
+		this.s = s;
+		this.t = t;
+		this.heights = new int[numVertices];
+		this.excesses = new int[numVertices];
+		Arrays.fill(heights, 0);
+		heights[s] = numVertices;
+		List<OneEndpointEdge> adj = array.get(s);
+		OneEndpointEdge edge;
+		for (int i = 0; i < adj.size(); i++) {
+			//Saturate all edges going out
+			edge = adj.get(i);
+			edge.augment(edge.capacity);
+			array.get(edge.endVertex).get(edge.reverseEdgeIndex).decrement(edge.capacity);
+		}
+	}
+	
+	protected void computeExcesses() {
+		for (int i = 0; i < numVertices; i++) {
+			List<OneEndpointEdge> adj = array.get(i);
+			int flow_in = 0;
+			int flow_out = 0;
+			for (OneEndpointEdge edge: adj) {
+				if (edge.capacity > 0) {
+					flow_out += edge.flow;
+				} else {
+					flow_in += edge.remainingCapacity();
+				}
+			}
+			excesses[i] = flow_in - flow_out;
+		}
+	}
+	
+	protected boolean thereIsExcess() {
+		int i = 0;
+		while (i < numVertices && excesses[i] == 0) {
+			i++;
+		}
+		return i < numVertices;
+	}
+	
 	/**
 	 * Precondition: n > 0
 	 * 

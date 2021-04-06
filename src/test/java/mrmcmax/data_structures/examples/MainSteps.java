@@ -24,7 +24,7 @@ public class MainSteps {
 	@When("the script is run")
 	public void theScriptIsRun() {
 		try {
-			
+			MainProgrammingCompetition.setFlowAlgorithm(MainProgrammingCompetition.DINIC);
 			result = MainProgrammingCompetition.startWithFile(pathToResources + fileName);
 		} catch (IOException e) {
 			fail("Exception was thrown: " + e);

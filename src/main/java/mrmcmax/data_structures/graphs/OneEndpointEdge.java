@@ -48,4 +48,8 @@ public class OneEndpointEdge {
 	public int remainingCapacity() {
 		return capacity - flow;
 	}
+	
+	public void resetFlowToZero() {
+		flow = 0;
+	}
 }

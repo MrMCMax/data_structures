@@ -25,8 +25,8 @@ public class Graph {
 	protected int numEdges;
 	
 	/* BFS */
-	protected Backtrack[] bfsBacktrack;			// First: v_in, Second: index
-	protected EasyQueue<Integer> q;
+	public Backtrack[] bfsBacktrack;			// First: v_in, Second: index
+	public EasyQueue<Integer> q;
 	
 	/* DIJKSTRA */
 	private int[] distances;
@@ -250,7 +250,7 @@ public class Graph {
 		return parents;
 	}
 	
-	protected static class Backtrack {
+	public static class Backtrack {
 		public int v_in;
 		public int edgeIndex;
 		

@@ -36,6 +36,28 @@ public class ResidualGraphList extends Graph {
 		array.get(v_out).add(new OneEndpointEdge(v_in, 0, pos));
 		maxCap = Math.max(maxCap, capacity);
 	}
+	
+	public void setSource(int s) {
+		this.s = s;
+	}
+	
+	public void setSink(int t) {
+		this.t = t;
+	}
+	
+	public int getSource() { return s; }
+	public int getSink() { return t; }
+	
+	/**
+	 * Resets all flows to the zero flow.
+	 */
+	public void resetFlowsToZero() {
+		for (List<OneEndpointEdge> adj : array) {
+			for (OneEndpointEdge edge : adj) {
+				edge.resetFlowToZero();
+			}
+		}
+	}
 
 	public boolean hasAugmentingPath(int s, int t, Function<OneEndpointEdge, Boolean> labelCondition) {
 		return existsPathWithConditionBFS(s, t, labelCondition);

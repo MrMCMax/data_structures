@@ -52,4 +52,9 @@ public class OneEndpointEdge {
 	public void resetFlowToZero() {
 		flow = 0;
 	}
+	
+	@Override
+	public String toString() {
+		return "(" + endVertex + ", " + flow + "/" + capacity + ")";
+	}
 }

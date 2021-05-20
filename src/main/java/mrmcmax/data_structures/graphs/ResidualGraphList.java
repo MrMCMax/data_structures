@@ -35,6 +35,7 @@ public class ResidualGraphList extends Graph {
 		array.get(v_in).add(new OneEndpointEdge(v_out, capacity, reverse));
 		array.get(v_out).add(new OneEndpointEdge(v_in, 0, pos));
 		maxCap = Math.max(maxCap, capacity);
+		numEdges+=2;
 	}
 	
 	public void setSource(int s) {

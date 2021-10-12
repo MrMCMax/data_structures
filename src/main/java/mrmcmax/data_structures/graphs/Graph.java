@@ -18,7 +18,7 @@ import mrmcmax.data_structures.linear.ArrayLimitQueue;
 import mrmcmax.data_structures.linear.EasyQueue;
 
 public class Graph {
-	
+	//Directed graph
 	protected List<ArrayList<OneEndpointEdge>> array;
 
 	protected int numVertices;

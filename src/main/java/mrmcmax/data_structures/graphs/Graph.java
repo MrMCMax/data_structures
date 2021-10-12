@@ -19,7 +19,7 @@ import mrmcmax.data_structures.linear.EasyQueue;
 
 public class Graph {
 	//Directed graph
-	//Git test
+	//Git test 2
 	protected List<ArrayList<OneEndpointEdge>> array;
 
 	protected int numVertices;

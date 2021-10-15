@@ -13,22 +13,23 @@ import mrmcmax.data_structures.trees.PlungePriorityQueue;
 import static mrmcmax.data_structures.trees.PlungePriorityQueue.Entry;
 
 public class BinaryHeapDijkstra implements Dijkstra {
-	private Graph g;
 	
 	/** Keys: distances, Values: vertices */
 	private PlungePriorityQueue<Integer> distances;
 	private List<Integer> shortestPathParents;
 	private List<Integer> shortestDistances;
 	
-	public BinaryHeapDijkstra(Graph g) {
-		this.g = g;
+	public BinaryHeapDijkstra() {}
+	
+	private void createDataStructure(Graph g) {
 		distances = new BinaryPlungeHeap<Integer>(g.getNumVertices());
 		shortestPathParents = new ArrayList<Integer>(Collections.nCopies(g.getNumVertices(), -1));
 		shortestDistances = new ArrayList<Integer>(Collections.nCopies(g.getNumVertices(), -1));
 	}
 
 	@Override
-	public void computeDijkstra(int s) {
+	public void computeDijkstra(Graph g, int s) {
+		createDataStructure(g);
 		shortestPathParents.set(s, s);
 		shortestDistances.set(s, 0);
 		distances.add(0, s);
@@ -84,5 +85,17 @@ public class BinaryHeapDijkstra implements Dijkstra {
 	@Override
 	public Iterator<Integer> getParents() {
 		return shortestPathParents.iterator();
+	}
+	
+	//Example of use
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Graph g = new Graph(7);
+		g.addEdge(0, 1);
+		//....
+		Dijkstra dij = new BinaryHeapDijkstra();
+		dij.computeDijkstra(g, 0);
+		Iterator<Integer> distances = dij.getDistances();
+		Iterator<Integer> parents = dij.getParents();
 	}
 }

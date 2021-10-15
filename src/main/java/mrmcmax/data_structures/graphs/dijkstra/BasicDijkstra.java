@@ -13,18 +13,16 @@ import mrmcmax.data_structures.graphs.OneEndpointEdge;
 
 public class BasicDijkstra implements Dijkstra {
 	
-	private Graph g;
-	
 	private List<Integer> distances;
 	private List<Integer> parents;
 	
-	public BasicDijkstra(Graph g) {
-		this.g = g;
+	private void createDataStructures(Graph g) {
 		distances = new ArrayList<Integer>(Collections.nCopies(g.getNumVertices(), Integer.MAX_VALUE));
 		parents = new ArrayList<Integer>(Collections.nCopies(g.getNumVertices(), -1));
 	}
 
-	public void computeDijkstra(int s) {
+	public void computeDijkstra(Graph g, int s) {
+		createDataStructures(g);
 		distances.set(s, 0);
 		Set<Integer> S = new HashSet<>();
 		Set<Integer> V = new HashSet<>();
@@ -76,5 +74,17 @@ public class BasicDijkstra implements Dijkstra {
 	@Override
 	public Iterator<Integer> getParents() {
 		return parents.iterator();
+	}
+	
+	//Example of use
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Graph g = new Graph(7);
+		g.addEdge(0, 1);
+		//....
+		Dijkstra dij = new BasicDijkstra();
+		dij.computeDijkstra(g, 0);
+		Iterator<Integer> distances = dij.getDistances();
+		Iterator<Integer> parents = dij.getParents();
 	}
 }

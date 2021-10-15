@@ -182,14 +182,14 @@ public class Graph {
 	}
 	
 	public Dijkstra dijkstraInterface(int s) {
-		Dijkstra d = new BasicDijkstra(this);
-		d.computeDijkstra(s);
+		Dijkstra d = new BasicDijkstra();
+		d.computeDijkstra(this, s);
 		return d;
 	}
 	
 	public Dijkstra dijkstraBinaryHeapInterface(int s) {
-		Dijkstra d = new BinaryHeapDijkstra(this);
-		d.computeDijkstra(s);
+		Dijkstra d = new BinaryHeapDijkstra();
+		d.computeDijkstra(this, s);
 		return d;
 	}
 	

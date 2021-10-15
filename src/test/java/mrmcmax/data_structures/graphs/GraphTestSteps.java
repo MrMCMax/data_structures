@@ -80,13 +80,6 @@ public class GraphTestSteps {
 		}
 	}
 
-	@When("Dijkstras algorithm is run")
-	public void dijkstrasAlgorithmIsRun() {
-		graph.dijkstra(0);
-		distances = graph.getDistances();
-		parents = graph.getParents();
-	}
-
 	@Then("the distances are {string}")
 	public void theDistancesAre(String raw) {
 	    String[] expectedDistances = raw.split(" ");

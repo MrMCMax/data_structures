@@ -1,9 +1,12 @@
 package mrmcmax.data_structures.examples;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import mrmcmax.data_structures.graphs.Graph;
+import mrmcmax.data_structures.graphs.dijkstra.BinaryHeapDijkstra;
+import mrmcmax.data_structures.graphs.dijkstra.Dijkstra;
 
 public class ChinesePostmanExample {
 	
@@ -47,15 +50,26 @@ public class ChinesePostmanExample {
 			vertices[i] = i;
 		for (Integer source : oddDegreeVertices) {
 			System.out.println("Dijkstra from " + source + ":");
-			g.dijkstra(source);
-			int[] distances = g.getDistances();
-			int[] parents = g.getParents();
+			Dijkstra d = new BinaryHeapDijkstra();
+			d.computeDijkstra(g, source);
+			Iterator<Integer> distances = d.getDistances();
+			Iterator<Integer> parents = d.getParents();
 			System.out.println("Distances: ");
 			System.out.println(Arrays.toString(vertices));
-			System.out.println(Arrays.toString(distances));
+			System.out.print("[");
+			System.out.print(distances.next());
+			while (distances.hasNext()) {
+				System.out.print(", " + distances.next());
+			}
+			System.out.println("]");
 			System.out.println("Parents: ");
 			System.out.println(Arrays.toString(vertices));
-			System.out.println(Arrays.toString(parents));
+			System.out.print("[");
+			System.out.print(parents.next());
+			while (parents.hasNext()) {
+				System.out.print(", " + parents.next());
+			}
+			System.out.println("]");
 		}
 		
 	}

@@ -193,64 +193,6 @@ public class Graph {
 		return d;
 	}
 	
-	public void dijkstra(int s) {
-		distances = new int[numVertices];
-		parents = new int[numVertices];
-		Arrays.fill(distances, Integer.MAX_VALUE);
-		Arrays.fill(parents, -1);
-		distances[s] = 0;
-		Set<Integer> S = new HashSet<>();
-		Set<Integer> V = new HashSet<>();
-		for (int i = 0; i < numVertices; i++) {
-			V.add(i);
-		}
-		do {
-			/* Retrieve the minimum by iterating through all the vertices in V*/
-			Iterator<Integer> it = V.iterator();
-			int startVertex = it.next();
-			while (it.hasNext()) {
-				int element = it.next();
-				if (distances[element] < distances[startVertex]) {
-					startVertex = element;
-				}
-			}
-			S.add(startVertex);
-			V.remove(startVertex);
-			/* Dijkstra */
-			List<OneEndpointEdge> adj = array.get(startVertex);
-			for (int i = 0; i < adj.size(); i++) {
-				OneEndpointEdge edge = adj.get(i);
-				int endVertex = edge.endVertex;
-				if (!S.contains(endVertex)) {
-					if (distances[endVertex] > edge.capacity + distances[startVertex]) {
-						distances[endVertex] = edge.capacity + distances[startVertex];
-						parents[endVertex] = startVertex;
-					}
-				}
-			}
-		} while (!V.isEmpty());
-	}
-	
-	public void dijsktraLogN(int s) {
-		distances = new int[numVertices];
-		parents = new int[numVertices];
-		Arrays.fill(distances, Integer.MAX_VALUE);
-		Arrays.fill(parents, -1);
-		distances[s] = 0;
-		
-		TreeSet<Integer> tree = new TreeSet<>();
-		
-		
-	}
-
-	public int[] getDistances() {
-		return distances;
-	}
-	
-	public int[] getParents() {
-		return parents;
-	}
-	
 	public static class Backtrack {
 		public int v_in;
 		public int edgeIndex;

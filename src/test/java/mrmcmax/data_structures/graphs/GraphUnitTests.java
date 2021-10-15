@@ -31,7 +31,7 @@ public class GraphUnitTests {
 	
 	@When("the minimum is retrieved")
 	public void theMinimumIsRetrieved() {
-		minimum = Graph.minSet(set);
+		minimum = DirectedGraph.minSet(set);
 	}
 	
 	@Then("the minimum is {int}")

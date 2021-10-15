@@ -2,11 +2,11 @@ package mrmcmax.data_structures.graphs.dijkstra;
 
 import java.util.Iterator;
 
-import mrmcmax.data_structures.graphs.Graph;
+import mrmcmax.data_structures.graphs.DirectedGraph;
 
 public interface Dijkstra {
 	
-	void computeDijkstra(Graph g, int s);
+	void computeDijkstra(DirectedGraph g, int s);
 	
 	int getDistance(int s);
 	

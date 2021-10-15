@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
 
-import mrmcmax.data_structures.graphs.Graph;
+import mrmcmax.data_structures.graphs.DirectedGraph;
 import mrmcmax.data_structures.graphs.OneEndpointEdge;
 import mrmcmax.data_structures.trees.BinaryPlungeHeap;
 import mrmcmax.data_structures.trees.PlungePriorityQueue;
@@ -21,14 +21,14 @@ public class BinaryHeapDijkstra implements Dijkstra {
 	
 	public BinaryHeapDijkstra() {}
 	
-	private void createDataStructure(Graph g) {
+	private void createDataStructure(DirectedGraph g) {
 		distances = new BinaryPlungeHeap<Integer>(g.getNumVertices());
 		shortestPathParents = new ArrayList<Integer>(Collections.nCopies(g.getNumVertices(), -1));
 		shortestDistances = new ArrayList<Integer>(Collections.nCopies(g.getNumVertices(), -1));
 	}
 
 	@Override
-	public void computeDijkstra(Graph g, int s) {
+	public void computeDijkstra(DirectedGraph g, int s) {
 		createDataStructure(g);
 		shortestPathParents.set(s, s);
 		shortestDistances.set(s, 0);
@@ -90,7 +90,7 @@ public class BinaryHeapDijkstra implements Dijkstra {
 	//Example of use
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Graph g = new Graph(7);
+		DirectedGraph g = new DirectedGraph(7);
 		g.addEdge(0, 1);
 		//....
 		Dijkstra dij = new BinaryHeapDijkstra();

@@ -4,14 +4,14 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import mrmcmax.data_structures.graphs.Graph;
+import mrmcmax.data_structures.graphs.DirectedGraph;
 import mrmcmax.data_structures.graphs.dijkstra.BinaryHeapDijkstra;
 import mrmcmax.data_structures.graphs.dijkstra.Dijkstra;
 
 public class ChinesePostmanExample {
 	
 	public static void main(String[] args) {
-		Graph g = new Graph(14);
+		DirectedGraph g = new DirectedGraph(14);
 		g.addUndirectedEdge(0, 1, 1);
 		g.addUndirectedEdge(0, 4, 7);
 		g.addUndirectedEdge(0, 3, 2);

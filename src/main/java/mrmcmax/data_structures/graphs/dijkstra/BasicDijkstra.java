@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import mrmcmax.data_structures.graphs.Graph;
+import mrmcmax.data_structures.graphs.DirectedGraph;
 import mrmcmax.data_structures.graphs.OneEndpointEdge;
 
 public class BasicDijkstra implements Dijkstra {
@@ -16,12 +16,12 @@ public class BasicDijkstra implements Dijkstra {
 	private List<Integer> distances;
 	private List<Integer> parents;
 	
-	private void createDataStructures(Graph g) {
+	private void createDataStructures(DirectedGraph g) {
 		distances = new ArrayList<Integer>(Collections.nCopies(g.getNumVertices(), Integer.MAX_VALUE));
 		parents = new ArrayList<Integer>(Collections.nCopies(g.getNumVertices(), -1));
 	}
 
-	public void computeDijkstra(Graph g, int s) {
+	public void computeDijkstra(DirectedGraph g, int s) {
 		createDataStructures(g);
 		distances.set(s, 0);
 		Set<Integer> S = new HashSet<>();
@@ -79,7 +79,7 @@ public class BasicDijkstra implements Dijkstra {
 	//Example of use
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Graph g = new Graph(7);
+		DirectedGraph g = new DirectedGraph(7);
 		g.addEdge(0, 1);
 		//....
 		Dijkstra dij = new BasicDijkstra();

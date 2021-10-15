@@ -20,7 +20,7 @@ public class GraphTestSteps {
 	
 	protected TwoEndpointEdge[] edges;
 	
-	protected Graph graph;
+	protected DirectedGraph graph;
 	
 	protected int[] distances;
 	protected int[] parents;
@@ -30,7 +30,7 @@ public class GraphTestSteps {
 	@Given("a set of {int} vertices")
 	public void aSetOfVertices(Integer int1) {
 		vertices = int1;
-		graph = new Graph(vertices);
+		graph = new DirectedGraph(vertices);
 	}
 	
 	@Given("the edges {string}")

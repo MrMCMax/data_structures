@@ -42,18 +42,6 @@ public class DirectedGraph implements Graph {
 		initBFS();
 	}
 	
-	public static Graph completeUndirectedGraph(int n) {
-		Graph kn = new DirectedGraph(n);
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if (j != i) {
-					kn.addEdge(i, j);
-				}
-			}
-		}
-		return kn;
-	}
-	
 	private void initBFS() {
 		bfsBacktrack = new Backtrack[numVertices];
 		q = new ArrayLimitQueue<>(Integer.class, numVertices);
@@ -73,16 +61,6 @@ public class DirectedGraph implements Graph {
 	public void addEdge(int v_in, int v_out, int capacity) {
 		array.get(v_in).add(new OneEndpointEdge(v_out, capacity));
 		numEdges++;
-	}
-	
-	public void addUndirectedEdge(int v_in, int v_out) {
-		addEdge(v_in, v_out);
-		addEdge(v_out, v_in);
-	}
-	
-	public void addUndirectedEdge(int v_in, int v_out, int capacity) {
-		addEdge(v_in, v_out, capacity);
-		addEdge(v_out, v_in, capacity);
 	}
 	
 	public int getNumEdges() {

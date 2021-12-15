@@ -20,6 +20,7 @@ public abstract class IntegerHashFunction {
 	
 	public abstract class HashFunctionInstance {
 		public abstract long hash(long element);
+		public abstract void printParameters();
 	};
 	
 	/**

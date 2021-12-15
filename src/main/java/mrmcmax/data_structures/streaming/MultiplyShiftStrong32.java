@@ -26,7 +26,7 @@ public class MultiplyShiftStrong32 extends IntegerHashFunction {
 	
 	public class MSS32Instance extends IntegerHashFunction.HashFunctionInstance {
 
-		private long a, b;
+		protected long a, b;
 		
 		public MSS32Instance() {
 			this.a = randomLongs.next();
@@ -40,6 +40,10 @@ public class MultiplyShiftStrong32 extends IntegerHashFunction {
 			} else {
 				return (((a*element + b) >>> 32)*m)>>32;
 			}
+		}
+		
+		public long hashWithoutDiv(long element) {
+			return (a*element) + b;
 		}
 		
 		public void printParameters() {

@@ -78,14 +78,14 @@ public class CountMin {
 		//Test logarithms
 		CountMin cmin = new CountMin();
 		for (int i = 0; i < cmin.d; i++) {
-			((MultiplyShiftStrong32.MSS32Instance) cmin.hashes[i]).printParameters();
+			cmin.hashes[i].printParameters();
 		}
-		//Test stream with 200 different integers and 10000 in total
+		//Test stream with 512 different integers and 10000 in total
 		//Countmin has hash functions with range 64
-		Iterator<Integer> randomInts = ThreadLocalRandom.current().ints(0, 200).iterator();
+		Iterator<Integer> randomInts = ThreadLocalRandom.current().ints(0, 512).iterator();
 		int n50 = 0, n60 = 0, n101 = 0; //test numbers
 		long t1 = System.currentTimeMillis();
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 1000; i++) {
 			int random = randomInts.next();
 			cmin.accept(random);
 			if (random == 50) n50++;

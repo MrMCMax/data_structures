@@ -31,6 +31,10 @@ public class MultiplyModPrimeStrong extends IntegerHashFunction {
 		public long hash(long element) {
 			return ((a*element + b) % p) % m;
 		}
+		
+		public void printParameters() {
+			System.out.println("a: " + Long.toUnsignedString(a) + ", b: " + Long.toUnsignedString(b));
+		}
 	}
 	
 	@Override
@@ -47,6 +51,6 @@ public class MultiplyModPrimeStrong extends IntegerHashFunction {
 	 * @return
 	 */
 	public static long nextPrime(long u) {
-		return 2;
+		return (1L << 89) - 1;
 	}
 }

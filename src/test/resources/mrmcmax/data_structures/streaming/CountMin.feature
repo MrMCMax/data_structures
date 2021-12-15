@@ -41,3 +41,9 @@ Feature: CountMin
   	Then The counters increase by one in each row of the CountMin
   	When We query the element 3812465
   	Then The CountMin does not undercount and returns at least 1
+  	Given The current state of the CountMin is known
+  	When The CountMin hashes the next element
+  	Then The counters increase by one in each row of the CountMin
+  	When We query the element 3812465
+  	Then The CountMin does not undercount and returns at least 2
+  	

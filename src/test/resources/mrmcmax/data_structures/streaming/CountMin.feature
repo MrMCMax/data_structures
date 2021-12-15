@@ -35,8 +35,8 @@ Feature: CountMin
     And the Universe n is two to the power of 32
     And The Range m is two to the power of 6
   	And The next element in the stream is 3812465
-  	And The current state of the CountMin
     When The CountMin is created
+  	Given The current state of the CountMin is known
   	When The CountMin hashes the next element
   	Then The counters increase by one in each row of the CountMin
   	When We query the element 3812465

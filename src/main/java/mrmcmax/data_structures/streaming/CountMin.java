@@ -10,34 +10,33 @@ import mrmcmax.data_structures.streaming.IntegerHashFunction.HashFunctionInstanc
 
 public class CountMin {
 	
-	private int d; //Number of functions
-	private int w; //Range of the hash functions
-	private long u; //Universe size
+	protected int d; //Number of functions
+	protected int w; //Range of the hash functions
+	protected long u; //Universe size
 	
-	private IntegerHashFunction strongHashFunction;
-	private HashFunctionInstance[] hashes;
+	protected IntegerHashFunction strongHashFunction;
+	protected HashFunctionInstance[] hashes;
 	
-	private int counters[][]; //data structure of counters!
+	protected int counters[][]; //data structure of counters!
 	
 	public CountMin() {
 		//dude
-		this.u = (long) 1<<32;
-		this.w = 64;
-		this.d = 8;
-		initialize();
+		initialize((long) 1<<32, 64, 8);
 	}
 	
 	public CountMin(long universeSize, double epsilon, double delta) {
-		u = universeSize;
-		w = (int) Math.ceil(2 / epsilon);
-		d = (int) Math.ceil(Math.log(1/delta) / Math.log(2));
+		int w = (int) Math.ceil(2 / epsilon);
+		int d = (int) Math.ceil(Math.log(1/delta) / Math.log(2));
 		//Very improvable efficiency-wise but hey, let's leave it for another day
-		initialize();
+		initialize(universeSize, w, d);
 	}
 	
-	private void initialize() {
+	public void initialize(long u, int w, int d) {
 		//We will make sure that our hash function doesn't return hashes that
 		//don't fit into a signed int
+		this.u = u;
+		this.w = w;
+		this.d = d;
 		strongHashFunction = new MultiplyShiftStrong32(w);
 		hashes = new HashFunctionInstance[d];
 		for (int i = 0; i < d; i++) {

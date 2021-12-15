@@ -1,5 +1,7 @@
 package mrmcmax;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -33,5 +35,13 @@ public class TestUtils {
 				return ret.stream().map((s) -> Integer.parseInt(s)).collect(Collectors.toList());
 			}
 		};
+	}
+	
+	public static void failIfException(Runnable code) {
+		try {
+			code.run();
+		} catch (Exception e) {
+			fail(e);
+		}
 	}
 }

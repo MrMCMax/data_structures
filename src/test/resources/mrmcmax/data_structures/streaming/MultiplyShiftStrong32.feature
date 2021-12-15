@@ -24,5 +24,5 @@ Feature: Title of your feature
   Scenario: Test of correctness of hash using BigInteger
   	Given a hash function MultiplyShiftStrong32 with range two to the 7
   	And one of its instances
-  	When we hash the element 293745
-  	Then we get the correct value as if we were using BigInteger
+  	When we hash 1000 random elements
+  	Then we get the correct values as if we were using BigInteger

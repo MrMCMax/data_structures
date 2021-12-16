@@ -1,9 +1,13 @@
 package mrmcmax.data_structures.streaming;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class DyadicIntervalsCountMin {
 	
 	protected int levels;
 	protected CountMin[] cmins;
+	protected long u;
 	
 	public DyadicIntervalsCountMin(long u, int w, int d) {
 		this.levels = 64 - Long.numberOfLeadingZeros(u - 1); //ceil ( log_2 (u) )
@@ -12,6 +16,16 @@ public class DyadicIntervalsCountMin {
 			cmins[i] = new CountMin();
 			cmins[i].initialize(u, w, d);
 		}
+		this.u = u;
+	}
+	
+	/**
+	 * Returns the log_2 of the length of a dyadic interval at a given level, defined by the size of the universe.
+	 * @param level
+	 * @return
+	 */
+	public int intervalLengthInBits(int level) {
+		return levels - (level + 1);
 	}
 	
 	/**
@@ -21,9 +35,47 @@ public class DyadicIntervalsCountMin {
 	 * @param element
 	 * @return
 	 */
-	public long identifier(int level, long element) {
+	public int identifier(int level, int element) {
 		//We have to set to zero the LSB bits. We can do a right shift and then a left shift.
-		int nBits = levels - (level + 1);
+		int nBits = intervalLengthInBits(level);
 		return (element >>> (nBits)) << nBits;
 	}
+
+	public void accept(int e1) {
+		for (int level = 0; level < levels; level++) {
+			//In each level, we compute the identifier for e1 and add it as such
+			int id = identifier(level, e1);
+			cmins[level].accept(id);
+		}
+	}
+
+	public List<Integer> heavyHitters(Integer k) {
+		List<Integer> possibleHeavyHitters = new LinkedList<Integer>();
+		heavyHitters(0, 0, k, possibleHeavyHitters); //First interval starts at 0
+		heavyHitters(0, (int) (u>>1), k, possibleHeavyHitters); //Second interval starts at n/2
+		return possibleHeavyHitters;
+	}
+	
+	protected void heavyHitters(int level, int idToQuery, int k, List<Integer> heavyHitters) {
+		CountMin cmin = cmins[level];
+		long m  = cmin.m();
+		if (cmin.queryFrequency(idToQuery) >= m/k) {
+			//Base case: we have found a heavy hitter
+			if (level == levels - 1) {
+				heavyHitters.add(idToQuery);
+			}
+			//General case: this interval might contain heavy hitters, query both children
+			else {
+				heavyHitters(level + 1, idToQuery, k, heavyHitters);
+				int secondChild = idToQuery + 1<<(intervalLengthInBits(level+1));
+				heavyHitters(level + 1, secondChild, k, heavyHitters);
+			}
+		}
+	}
 }
+
+
+
+
+
+

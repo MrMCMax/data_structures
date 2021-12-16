@@ -21,7 +21,7 @@ Feature: CountMin with Dyadic Intervals
   I want to use this template for my feature file
 
   @UnitTest
-  Scenario: Initialise data structure
+  Scenario: Initialise data structure with the correct levels
     Given Dyadic Intervals for the problem u=two to the 32, d=8, range=two to the 6
     When The Dyadic Intervals data structure is created
     Then There are 32 CountMins in the data structure
@@ -35,6 +35,8 @@ Feature: CountMin with Dyadic Intervals
 
   @UnitTest
   Scenario: Two consecutive values are hashed and retrieved
+    Given Dyadic Intervals for the problem u=two to the 32, d=8, range=two to the 6
+    When The Dyadic Intervals data structure is created
   	Given The next elements in the stream are 3812465 and 3812466
   	And The current state of the Heavy Hitters data structure
   	When The next two elements are analysed

@@ -13,6 +13,7 @@ public class CountMin {
 	protected int d; //Number of functions
 	protected int w; //Range of the hash functions
 	protected long u; //Universe size
+	protected long m = 0; //Recorded number of elements
 	
 	protected IntegerHashFunction strongHashFunction;
 	protected HashFunctionInstance[] hashes;
@@ -57,6 +58,7 @@ public class CountMin {
 			hash = (int) hashes[i].hash(element);
 			counters[i][hash]++;
 		}
+		m++;
 	}
 	
 	/**
@@ -78,10 +80,17 @@ public class CountMin {
 	}
 	
 	/**
+	 * Returns the recorded m.
+	 */
+	public long m() {
+		return m;
+	}
+	
+	/**
 	 * For debugging purposes, adds all the frequencies up, to m.
 	 * @param args
 	 */
-	public long getM() {
+	public long computeMWithRow() {
 		long sum = 0;
 		for (int i = 0; i < w; i++) {
 			sum += counters[0][i];

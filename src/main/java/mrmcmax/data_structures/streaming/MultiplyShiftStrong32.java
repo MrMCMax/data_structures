@@ -16,11 +16,11 @@ public class MultiplyShiftStrong32 extends IntegerHashFunction {
 		}
 		//Universe of size 32 bits
 		//We want a random number generator for a and b in \bar{w}
-		randomLongs = ThreadLocalRandom.current().longs().iterator(); //This goes till Long.MAX_VALUE, which is 1>>>64 (-1)
+		randomLongs = ThreadLocalRandom.current().longs().iterator(); //This should go till Long.MAX_VALUE, which is 1<<64 (-1)
 		rangeIsAPowerOf2 = Long.bitCount(rangeSize) == 1;
 		if (rangeIsAPowerOf2) {
 			rangeExponent = Long.numberOfTrailingZeros(rangeSize);
-			System.out.println("The range is a power of 2. It is 2 to the " + rangeExponent);
+			//System.out.println("The range is a power of 2. It is 2 to the " + rangeExponent);
 		}
 	}
 	

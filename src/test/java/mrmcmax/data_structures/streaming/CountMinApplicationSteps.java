@@ -11,12 +11,6 @@ public class CountMinApplicationSteps {
 	public CountMinApplicationSteps(CountMin cm) {
 		this.cm = cm;
 	}
-	
-	@When("The Dyadic Intervals data structure is created")
-	public void theDyadicIntervalsDataStructureIsCreated() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
 
 	@When("We have the stream {int}, {int}, {int}, {int}, {int}, {int}, {int}, {int}, {int}")
 	public void weHaveTheStream(Integer int1, Integer int2, Integer int3, Integer int4, Integer int5, Integer int6, Integer int7, Integer int8, Integer int9) {

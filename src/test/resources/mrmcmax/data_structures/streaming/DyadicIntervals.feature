@@ -22,20 +22,23 @@ Feature: CountMin with Dyadic Intervals
 
   @UnitTest
   Scenario: Initialise data structure
-    Given The no. of functions is 4
-    And the Universe n is two to the power of 32
-    And The Range m is two to the power of 6
+    Given Dyadic Intervals for the problem u=two to the 32, d=8, range=two to the 6
     When The Dyadic Intervals data structure is created
     Then There are 32 CountMins in the data structure
-    And Each CountMin object has 4 hash functions
-    And Each CountMin object has a table of 4 x 64 counters
+    
+  @UnitTest
+  Scenario: Dyadic Intervals
+  	Given an interval size m=8 at level 6
+  	And an universe n=two to the power of 10
+    When we want to know the identifier of all the elements
+    Then the identifier only changes every m=8 elements
 
   @UnitTest
   Scenario: Two consecutive values are hashed and retrieved
   	Given The next elements in the stream are 3812465 and 3812466
   	And The current state of the Heavy Hitters data structure
-  	When The next element is analysed
-  	Then The counters increase by two in each row of all CountMins but the last
-  	And In the last CountMin, two different values increase by 1
-  	When We query with k equal to 2
+  	When The next two elements are analysed
+		Then All the countmins have two more elements
+  	When We query with k equal to 2 
   	Then We retrieve 3812465 and 3812466
+  	And There are no more than 4 queries in each of the CountMins

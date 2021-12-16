@@ -17,6 +17,8 @@ public class CountMin {
 	protected IntegerHashFunction strongHashFunction;
 	protected HashFunctionInstance[] hashes;
 	
+	protected int nQueries = 0; //For debugging purposes: Number of frequency queries performed till now
+	
 	protected int counters[][]; //data structure of counters!
 	
 	public CountMin() {
@@ -71,11 +73,23 @@ public class CountMin {
 				countMin = counters[i][hash];
 			}
 		}
+		nQueries++;
 		return countMin;
 	}
 	
+	/**
+	 * For debugging purposes, adds all the frequencies up, to m.
+	 * @param args
+	 */
+	public long getM() {
+		long sum = 0;
+		for (int i = 0; i < w; i++) {
+			sum += counters[0][i];
+		}
+		return sum;
+	}
+	
 	public static void main(String[] args) {
-		//Test logarithms
 		CountMin cmin = new CountMin();
 		for (int i = 0; i < cmin.d; i++) {
 			cmin.hashes[i].printParameters();

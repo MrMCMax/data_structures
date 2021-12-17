@@ -26,7 +26,7 @@ public class DyadicIntervalsCountMinSteps {
 	int nextElement;
 	long ms[];
 
-	List<Integer> resultHeavyHitters;
+	List<Long> resultHeavyHitters;
 	
 	public DyadicIntervalsCountMinSteps(DyadicIntervalsCountMin dy) {
 		this.dy = dy;
@@ -120,14 +120,14 @@ public class DyadicIntervalsCountMinSteps {
 		resultHeavyHitters = dy.heavyHitters(k);
 	}
 
-	@Then("We retrieve {int} and {int}")
-	public void weRetrieveAnd(Integer int1, Integer int2) {
+	@Then("We retrieve {long} and {long}")
+	public void weRetrieveAnd(Long int1, Long int2) {
 		failIfException(() -> {
 			boolean int1Found = false;
 			boolean int2Found = false;
-			Iterator<Integer> it = resultHeavyHitters.iterator();
+			Iterator<Long> it = resultHeavyHitters.iterator();
 			while (it.hasNext() && !(int1Found && int2Found)) {
-				int possibleHeavyHitter = it.next();
+				long possibleHeavyHitter = it.next();
 				int1Found = int1Found || possibleHeavyHitter == int1;
 				int2Found = int2Found || possibleHeavyHitter == int2;
 			}
@@ -157,8 +157,8 @@ public class DyadicIntervalsCountMinSteps {
 		ID = int1;
 	}
 
-	@Then("We get the result {int}")
-	public void weGetTheResult(Integer int1) {
+	@Then("We get the result {long}")
+	public void weGetTheResult(Long int1) {
 		assertEquals(dy.secondChild(ID, level), int1, "Expected second child of " + ID + " on level " + level
 				+ " to be " + int1 + " but was " + dy.secondChild(ID, level));
 	}

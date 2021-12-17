@@ -23,12 +23,12 @@ public class RangeQueriesSteps {
 		end = int2;
 	}
 
-	@Then("The splitting node that is returned has ID {int} and level {int}")
-	public void theSplittingNodeThatIsReturnedHasIDAndLevel(Integer int1, Integer int2) {
-		int[] splittingNode = dy.findSplittingNode(start, end);
+	@Then("The splitting node that is returned has ID {long} and level {int}")
+	public void theSplittingNodeThatIsReturnedHasIDAndLevel(Long int1, Integer int2) {
+		long[] splittingNode = dy.findSplittingNode(start, end);
 		assertEquals(splittingNode[0], int1,
 				"Expected ID of splitting node to be " + int1 + " but was " + splittingNode[0]);
-		assertEquals(splittingNode[1], int2,
+		assertEquals((int) splittingNode[1], int2,
 				"Expected level of splitting node to be " + int2 + " but was " + splittingNode[1]);
 	}
 

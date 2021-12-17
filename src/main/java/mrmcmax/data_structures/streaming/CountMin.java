@@ -66,7 +66,7 @@ public class CountMin {
 	 * @param element the element to estimate the frequency of
 	 * @return the estimated frequency.
 	 */
-	public int queryFrequency(int element) {
+	public int queryFrequency(long element) {
 		int hash = (int) hashes[0].hash(element);
 		int countMin = counters[0][hash];
 		for (int i = 1; i < d; i++) {

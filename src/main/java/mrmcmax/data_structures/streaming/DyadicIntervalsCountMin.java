@@ -55,15 +55,15 @@ public class DyadicIntervalsCountMin {
 		}
 	}
 
-	public List<Integer> heavyHitters(Integer k) {
-		List<Integer> possibleHeavyHitters = new LinkedList<Integer>();
+	public List<Long> heavyHitters(Integer k) {
+		List<Long> possibleHeavyHitters = new LinkedList<Long>();
 		heavyHitters(0, 0, k, possibleHeavyHitters); //First interval starts at 0
-		int secondChild = secondChild(0, -1);
+		long secondChild = secondChild(0, -1);
 		heavyHitters(0, secondChild, k, possibleHeavyHitters); //Second interval starts at n/2
 		return possibleHeavyHitters;
 	}
 	
-	protected void heavyHitters(int level, int idToQuery, int k, List<Integer> heavyHitters) {
+	protected void heavyHitters(int level, long idToQuery, int k, List<Long> heavyHitters) {
 		CountMin cmin = cmins[level];
 		long m  = cmin.m();
 		if (cmin.queryFrequency(idToQuery) >= m/k) {
@@ -74,36 +74,35 @@ public class DyadicIntervalsCountMin {
 			//General case: this interval might contain heavy hitters, query both children
 			else {
 				heavyHitters(level + 1, idToQuery, k, heavyHitters);
-				int secondChild = secondChild(idToQuery, level);
+				long secondChild = secondChild(idToQuery, level);
 				heavyHitters(level + 1, secondChild, k, heavyHitters);
 			}
 		}
 	}
 	
-	protected int secondChild(int id, int currLevel) {
+	protected long secondChild(long id, int currLevel) {
 		int toAdd = 1<<(intervalLengthInBits(currLevel + 1));
 		return id + toAdd;
 	}
 
-	public int[] findSplittingNode(int start, int end) {
-		int ID = 0;
+	public long[] findSplittingNode(int start, int end) {
+		long ID = 0;
 		int level = -1;
 		if (start > end) throw new RuntimeException("Empty range");
 		if (start == end) {
 			ID = start;
 			level = levels - 1;
 		} else {
-			long intervalStart = 0;
-			long intervalEnd = 0;
-			//while ((end < intervalEnd) || (start > intervalStart)) {
-				if (end < intervalEnd) {
-					
-				} else {
-					
-				}
-			//}
+			long secondChild = secondChild(0, -1);
+			while ((end < secondChild) || (start > secondChild)) {
+				if (start > secondChild) {
+					ID = secondChild;
+				} //In the other case we don't have to change the ID, because we are recursing left
+				level++;
+				secondChild = secondChild(ID, level);
+			}
 		}
-		return new int[] {ID, level};
+		return new long[] {ID, level};
 	}
 	
 	public static void main(String[] args) {

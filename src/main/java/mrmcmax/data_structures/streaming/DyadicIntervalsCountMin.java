@@ -9,7 +9,13 @@ public class DyadicIntervalsCountMin {
 	protected CountMin[] cmins;
 	protected long u;
 	
+	public DyadicIntervalsCountMin() {	} //To be used with initialize
+	
 	public DyadicIntervalsCountMin(long u, int w, int d) {
+		initialize(u, w, d);
+	}
+	
+	public void initialize(long u, int w, int d) {
 		this.levels = 64 - Long.numberOfLeadingZeros(u - 1); //ceil ( log_2 (u) )
 		cmins = new CountMin[levels];
 		for (int i = 0; i < levels; i++) {

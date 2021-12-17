@@ -27,6 +27,10 @@ public class DyadicIntervalsCountMinSteps {
 	long ms[];
 
 	List<Integer> resultHeavyHitters;
+	
+	public DyadicIntervalsCountMinSteps(DyadicIntervalsCountMin dy) {
+		this.dy = dy;
+	}
 
 	@Given("Dyadic Intervals for the problem u=two to the {int}, d={int}, range=two to the {int}")
 	public void dyadicIntervalsForTheProblemUTwoToTheDRangeTwoToThe(Integer u_exp, Integer d, Integer w_exp) {
@@ -39,7 +43,7 @@ public class DyadicIntervalsCountMinSteps {
 
 	@When("The Dyadic Intervals data structure is created")
 	public void theDyadicIntervalsDataStructureIsCreated() {
-		dy = new DyadicIntervalsCountMin(u, w, d);
+		dy.initialize(u, w, d);
 	}
 
 	@Then("There are {int} CountMins in the data structure")

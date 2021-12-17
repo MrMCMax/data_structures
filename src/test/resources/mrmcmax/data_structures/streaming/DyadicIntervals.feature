@@ -61,3 +61,4 @@ Feature: CountMin with Dyadic Intervals
   	When We query with k equal to 2 
   	Then We retrieve 3812465 and 3812466
   	And There are no more than 4 queries in each of the CountMins
+

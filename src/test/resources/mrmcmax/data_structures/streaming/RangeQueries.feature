@@ -16,25 +16,22 @@
 #""
 ## (Comments)
 #Sample Feature Definition Template
-@CountMinApplications
+@RangeQueries
 Feature: Range Queries solution with Dyadic Intervals and CountMin
-  
-#  @AppTest
-#  Scenario: Test of HeavyHitters
-#    Given The no. of functions is 4
-#    And the Universe n is two to the power of 32
-#    And The Range m is two to the power of 6
-#    When The Dyadic Intervals data structure is created
-#    And We have the stream 3, 3, 3, 4, 5, 6, 3, 3, 3
-#    And We query the heavy hitters
-#    Then We get 3 in the result
+  	
+  @UnitTest
+  Scenario: Find splitting node in tree
+    Given Dyadic Intervals for the problem u=two to the 4, d=4, range=two to the 2
+    When The Dyadic Intervals data structure is created 
+    When We query the range [9, 13]
+    Then The splitting node that is returned has ID 8 and level 0
 
-  @AppTest
-  Scenario: Test of RangeQuery
-    Given The no. of functions is 4
-    And the Universe n is two to the power of 32
-    And The Range m is two to the power of 6
-    When The Dyadic Intervals data structure is created
-    And We have the stream 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
-    And We query the range [5, 8]
-    Then We get at least 4 in the range
+	@UnitTest
+	Scenario: Add values on the predecessor and successor branch    
+    Given Dyadic Intervals for the problem u=two to the 4, d=4, range=two to the 2
+    When The Dyadic Intervals data structure is created 
+    And We have the stream "1, 2, 3, 4, 5"
+    When We query the range [1, 5]
+    Then The predecessor branch returns at least 3
+    And The successor branch returns at least 2
+    And The final result is at least 5

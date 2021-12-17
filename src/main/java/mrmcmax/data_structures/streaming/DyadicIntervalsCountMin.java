@@ -41,16 +41,16 @@ public class DyadicIntervalsCountMin {
 	 * @param element
 	 * @return
 	 */
-	public int identifier(int level, int element) {
+	public long identifier(int level, long element) {
 		//We have to set to zero the LSB bits. We can do a right shift and then a left shift.
 		int nBits = intervalLengthInBits(level);
 		return (element >>> (nBits)) << nBits;
 	}
 
-	public void accept(int e1) {
+	public void accept(long e1) {
 		for (int level = 0; level < levels; level++) {
 			//In each level, we compute the identifier for e1 and add it as such
-			int id = identifier(level, e1);
+			long id = identifier(level, e1);
 			cmins[level].accept(id);
 		}
 	}
@@ -83,6 +83,20 @@ public class DyadicIntervalsCountMin {
 	protected int secondChild(int id, int currLevel) {
 		int toAdd = 1<<(intervalLengthInBits(currLevel + 1));
 		return id + toAdd;
+	}
+
+	public int[] findSplittingNode(int start, int end) {
+		int ID = 0;
+		int level = -1;
+		if (start > end) throw new RuntimeException("Empty range");
+		if (start == end) {
+			ID = start;
+			level = levels - 1;
+		} else {
+			long intervalStart = 0;
+			long intervalEnd = u-1;
+		}
+		return new int[] {ID, level};
 	}
 }
 

@@ -52,7 +52,7 @@ public class CountMin {
 	 * Processes an element of the stream
 	 * @param element
 	 */
-	public void accept(int element) {
+	public void accept(long element) {
 		int hash;
 		for (int i = 0; i < d; i++) {
 			hash = (int) hashes[i].hash(element);

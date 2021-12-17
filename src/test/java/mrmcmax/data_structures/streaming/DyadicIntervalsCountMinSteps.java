@@ -70,7 +70,7 @@ public class DyadicIntervalsCountMinSteps {
 			long currentID = 0;
 			long repeatedValue = 0;
 			for (int i = 0; i < u; i++) {
-				int id = dy.identifier(test_level, i);
+				long id = dy.identifier(test_level, i);
 				if (repeatedValue < test_interval_size) {
 					assertEquals(currentID, id);
 					repeatedValue++;

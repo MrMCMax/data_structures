@@ -52,7 +52,8 @@ public class DyadicIntervalsCountMin {
 	public List<Integer> heavyHitters(Integer k) {
 		List<Integer> possibleHeavyHitters = new LinkedList<Integer>();
 		heavyHitters(0, 0, k, possibleHeavyHitters); //First interval starts at 0
-		heavyHitters(0, (int) (u>>1), k, possibleHeavyHitters); //Second interval starts at n/2
+		int secondChild = secondChild(0, 0);
+		heavyHitters(0, secondChild, k, possibleHeavyHitters); //Second interval starts at n/2
 		return possibleHeavyHitters;
 	}
 	
@@ -67,10 +68,15 @@ public class DyadicIntervalsCountMin {
 			//General case: this interval might contain heavy hitters, query both children
 			else {
 				heavyHitters(level + 1, idToQuery, k, heavyHitters);
-				int secondChild = idToQuery + 1<<(intervalLengthInBits(level+1));
+				int secondChild = secondChild(idToQuery, level);
 				heavyHitters(level + 1, secondChild, k, heavyHitters);
 			}
 		}
+	}
+	
+	protected int secondChild(int id, int currLevel) {
+		int toAdd = 1<<(intervalLengthInBits(currLevel + 1));
+		return id + toAdd;
 	}
 }
 

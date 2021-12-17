@@ -32,6 +32,23 @@ Feature: CountMin with Dyadic Intervals
   	And an universe n=two to the power of 10
     When we want to know the identifier of all the elements
     Then the identifier only changes every m=8 elements
+  	
+  @UnitTest
+  Scenario Outline: Compute second child
+  	Given Dyadic Intervals for the problem u=two to the 3, d=2, range=two to the 2
+  	When The Dyadic Intervals data structure is created
+    Given that we are in the level <Level>
+    When I check for the second child of <ID>
+    Then We get the result <result>
+
+    Examples: 
+      | Level | ID | result |
+      | 0     | 0  | 2      |
+      | 0     | 4  | 6      |
+      | 1     | 0  | 1      |
+      | 1     | 2  | 3      |
+      | 1     | 4  | 5      |
+      | 1     | 6  | 7      |
 
   @UnitTest
   Scenario: Two consecutive values are hashed and retrieved

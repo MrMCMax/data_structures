@@ -124,11 +124,11 @@ public class DyadicIntervalsCountMinSteps {
 			Iterator<Integer> it = resultHeavyHitters.iterator();
 			while (it.hasNext() && !(int1Found && int2Found)) {
 				int possibleHeavyHitter = it.next();
-				int1Found = possibleHeavyHitter == int1;
-				int2Found = possibleHeavyHitter == int2;
+				int1Found = int1Found || possibleHeavyHitter == int1;
+				int2Found = int2Found || possibleHeavyHitter == int2;
 			}
-			assertTrue(int1Found, "Expected to find heavy hitter " + int1Found);
-			assertTrue(int2Found, "Expected to find heavy hitter " + int2Found);
+			assertTrue(int1Found, "Expected to find heavy hitter " + int1);
+			assertTrue(int2Found, "Expected to find heavy hitter " + int2);
 		});
 	}
 
@@ -137,5 +137,25 @@ public class DyadicIntervalsCountMinSteps {
 		for (int i = 0; i < dy.levels; i++) {
 			assertTrue(dy.cmins[i].nQueries <= int1);
 		}
+	}
+
+	// For second child
+
+	int level, ID;
+
+	@Given("that we are in the level {int}")
+	public void thatWeAreInTheLevel(Integer int1) {
+		level = int1;
+	}
+
+	@When("I check for the second child of {int}")
+	public void iCheckForTheSecondChildOf(Integer int1) {
+		ID = int1;
+	}
+
+	@Then("We get the result {int}")
+	public void weGetTheResult(Integer int1) {
+		assertEquals(dy.secondChild(ID, level), int1, "Expected second child of " + ID + " on level " + level
+				+ " to be " + int1 + " but was " + dy.secondChild(ID, level));
 	}
 }

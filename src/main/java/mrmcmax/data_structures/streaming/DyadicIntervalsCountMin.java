@@ -58,7 +58,7 @@ public class DyadicIntervalsCountMin {
 	public List<Integer> heavyHitters(Integer k) {
 		List<Integer> possibleHeavyHitters = new LinkedList<Integer>();
 		heavyHitters(0, 0, k, possibleHeavyHitters); //First interval starts at 0
-		int secondChild = secondChild(0, 0);
+		int secondChild = secondChild(0, -1);
 		heavyHitters(0, secondChild, k, possibleHeavyHitters); //Second interval starts at n/2
 		return possibleHeavyHitters;
 	}
@@ -94,9 +94,29 @@ public class DyadicIntervalsCountMin {
 			level = levels - 1;
 		} else {
 			long intervalStart = 0;
-			long intervalEnd = u-1;
+			long intervalEnd = 0;
+			//while ((end < intervalEnd) || (start > intervalStart)) {
+				if (end < intervalEnd) {
+					
+				} else {
+					
+				}
+			//}
 		}
 		return new int[] {ID, level};
+	}
+	
+	public static void main(String[] args) {
+		DyadicIntervalsCountMin dy = new DyadicIntervalsCountMin(16, 4, 4);
+		dy.accept(8);
+		dy.accept(10);
+		for (int i = 0; i < 8; i++) {
+			dy.accept(9);
+		}
+		for (int i = 0; i < 8; i++) {
+			dy.accept(2);
+		}
+		dy.accept(3);
 	}
 }
 

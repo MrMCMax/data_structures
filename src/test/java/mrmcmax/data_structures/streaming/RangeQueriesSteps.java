@@ -1,6 +1,7 @@
 package mrmcmax.data_structures.streaming;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,21 +12,22 @@ public class RangeQueriesSteps {
 	// Shared between all test classes
 	DyadicIntervalsCountMin dy;
 
-	int start, end;
+	long start, end;
+	long[] splittingNode;
 
 	public RangeQueriesSteps(DyadicIntervalsCountMin dy) {
 		this.dy = dy;
 	}
 
-	@When("We query the range [{int}, {int}]")
-	public void weQueryTheRange(Integer int1, Integer int2) {
+	@When("We query the range [{long}, {long}]")
+	public void weQueryTheRange(Long int1, Long int2) {
 		start = int1;
 		end = int2;
 	}
 
 	@Then("The splitting node that is returned has ID {long} and level {int}")
 	public void theSplittingNodeThatIsReturnedHasIDAndLevel(Long int1, Integer int2) {
-		long[] splittingNode = dy.findSplittingNode(start, end);
+		splittingNode = dy.findSplittingNode(start, end);
 		assertEquals(splittingNode[0], int1,
 				"Expected ID of splitting node to be " + int1 + " but was " + splittingNode[0]);
 		assertEquals((int) splittingNode[1], int2,
@@ -40,21 +42,24 @@ public class RangeQueriesSteps {
 		}
 	}
 
-	@Then("The predecessor branch returns at least {int}")
-	public void thePredecessorBranchReturnsAtLeast(Integer int1) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+	@Then("The predecessor branch returns at least {long}")
+	public void thePredecessorBranchReturnsAtLeast(Long int1) {
+		long sum = dy.predecessorBranch(splittingNode[0], (int) splittingNode[1], start, end);
+		assertTrue(sum >= int1, "Expected predecessor sum " + int1 + " but found " + sum);
+		System.out.println("Actual predecessor sum: " + sum + ", compared to the real one: " + int1);
 	}
 
-	@Then("The successor branch returns at least {int}")
-	public void theSuccessorBranchReturnsAtLeast(Integer int1) {
+	@Then("The successor branch returns at least {long}")
+	public void theSuccessorBranchReturnsAtLeast(Long int1) {
 		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		long sum = dy.successorBranch(splittingNode[0], (int) splittingNode[1], start, end);
+		assertTrue(sum >= int1, "Expected successor sum " + int1 + " but found " + sum);
+		System.out.println("Actual successor sum: " + sum + ", compared to the real one: " + int1);
 	}
 
-	@Then("The final result is at least {int}")
-	public void theFinalResultIsAtLeast(Integer int1) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+	@Then("The final result is at least {long}")
+	public void theFinalResultIsAtLeast(Long int1) {
+		long sum = dy.rangeQuery(start, end);
+		assertEquals(sum, int1, "Expected total sum " + int1 + " but found " + sum);
 	}
 }

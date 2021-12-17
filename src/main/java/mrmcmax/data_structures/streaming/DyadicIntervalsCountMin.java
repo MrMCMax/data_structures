@@ -84,8 +84,29 @@ public class DyadicIntervalsCountMin {
 		int toAdd = 1<<(intervalLengthInBits(currLevel + 1));
 		return id + toAdd;
 	}
+	
+	/**
+	 * Query the frequency of the elements between start and end, both inclusive.
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public long rangeQuery(long start, long end) {
+		long[] splittingNode = findSplittingNode(start, end);
+		long ID = splittingNode[0];
+		int level = (int) splittingNode[1];
+		if (ID == start && ID + intervalLengthInBits(level) - 1 == end) {
+			//The whole splitting node is the range. This also covers the full range [n]
+			if (level == -1) return cmins[0].m;
+			return cmins[level].queryFrequency(ID);
+		}
+		//Else, we have work to do (branching)
+		long sum = predecessorBranch(splittingNode[0], (int) splittingNode[1], start, end);
+		sum += successorBranch(splittingNode[0], (int) splittingNode[1], start, end);
+		return sum;
+	}
 
-	public long[] findSplittingNode(int start, int end) {
+	protected long[] findSplittingNode(long start, long end) {
 		long ID = 0;
 		int level = -1;
 		if (start > end) throw new RuntimeException("Empty range");
@@ -105,17 +126,65 @@ public class DyadicIntervalsCountMin {
 		return new long[] {ID, level};
 	}
 	
-	public static void main(String[] args) {
-		DyadicIntervalsCountMin dy = new DyadicIntervalsCountMin(16, 4, 4);
-		dy.accept(8);
-		dy.accept(10);
-		for (int i = 0; i < 8; i++) {
-			dy.accept(9);
+	protected long predecessorBranch(long ID, int level, long start, long end) {
+		//If start is 0, the node on the left of the splitting node is full
+		if (start == 0) {
+			return cmins[level + 1].queryFrequency(ID);
+		} else {
+			//We have to search for the predecessor and output all the values in the right nodes.
+			//Literally sum all of them
+			long predecessor = start - 1;
+			long sum = 0;
+			//The level we get is the one of the splitting node
+			level++;
+			long secondChild = secondChild(ID, level);
+			while (level != levels - 1) { //If we are not on a leaf
+				level++; //Check children
+				if (predecessor < secondChild) {
+					//Add the node on the right. Already increment level
+					sum += cmins[level].queryFrequency(secondChild);
+					//System.out.println("Adding in predecessor the node " + secondChild + " on level " + level);
+					//Continue to the left
+				} else {
+					//Just recurse to the right. Don't add node
+					ID = secondChild;
+				}
+				secondChild = secondChild(ID, level);
+			}
+			//We are on the leaf of a predecessor. Nothing to do anymore
+			return sum;
 		}
-		for (int i = 0; i < 8; i++) {
-			dy.accept(2);
+	}
+	
+	protected long successorBranch(long ID, int level, long start, long end) {
+		long secondChild = secondChild(ID, level);
+		//If end is the last element, the node on the right is full
+		if (end == u-1) {
+			return cmins[level + 1].queryFrequency(secondChild);
+		} else {
+			//We have to search for the successor and add nodes on the left
+			long successor = end + 1;
+			long sum = 0;
+			//The level we get is that of the splitting node
+			level++;
+			//To set ourselves in the right node
+			ID = secondChild;
+			secondChild = secondChild(ID, level); //To enter the while
+			while (level != levels - 1) { //If we are not on a leaf, we might have to add nodes
+				level++;
+				if (successor >= secondChild) {
+					//We have to add the node on the left. We already increment the level
+					sum += cmins[level].queryFrequency(ID);
+					//System.out.println("Adding in successor the node " + ID + " on level " + level);
+					//And recurse on the right
+					ID = secondChild;
+				}
+				//else we just recurse to the left (we increased the level already. ID is the same
+				secondChild = secondChild(ID, level);
+			}
+			//We have reached the leaf of the predecessor. Nothing else to do
+			return sum;
 		}
-		dy.accept(3);
 	}
 }
 

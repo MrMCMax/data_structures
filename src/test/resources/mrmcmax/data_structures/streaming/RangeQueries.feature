@@ -32,6 +32,7 @@ Feature: Range Queries solution with Dyadic Intervals and CountMin
     When The Dyadic Intervals data structure is created 
     And We have the stream "1, 2, 3, 4, 5"
     When We query the range [1, 5]
+    Then The splitting node that is returned has ID 0 and level 0
     Then The predecessor branch returns at least 3
     And The successor branch returns at least 2
     And The final result is at least 5

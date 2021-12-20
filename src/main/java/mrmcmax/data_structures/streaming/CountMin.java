@@ -18,7 +18,7 @@ public class CountMin implements CountMinSketch {
 	protected IntegerHashFunction strongHashFunction;
 	protected HashFunctionInstance[] hashes;
 	
-	protected int nQueries = 0; //For debugging purposes: Number of frequency queries performed till now
+	protected long nQueries = 0; //For debugging purposes: Number of frequency queries performed till now
 	
 	protected long counters[][]; //data structure of counters!
 	
@@ -87,6 +87,11 @@ public class CountMin implements CountMinSketch {
 	@Override
 	public long m() {
 		return m;
+	}
+	
+	@Override
+	public long nQueries() {
+		return nQueries;
 	}
 	
 	/**

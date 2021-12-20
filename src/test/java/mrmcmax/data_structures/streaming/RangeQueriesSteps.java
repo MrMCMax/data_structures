@@ -10,12 +10,12 @@ import mrmcmax.TestUtils;
 public class RangeQueriesSteps {
 
 	// Shared between all test classes
-	DyadicIntervalsCountMin dy;
+	DyadicIntervals dy;
 
 	long start, end;
 	long[] splittingNode;
 
-	public RangeQueriesSteps(DyadicIntervalsCountMin dy) {
+	public RangeQueriesSteps(DyadicIntervals dy) {
 		this.dy = dy;
 	}
 

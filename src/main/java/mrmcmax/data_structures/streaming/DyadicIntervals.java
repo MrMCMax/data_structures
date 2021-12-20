@@ -5,24 +5,32 @@ import java.util.List;
 
 import mrmcmax.data_structures.utils.BinaryUtils;
 
-public class DyadicIntervalsCountMin {
+public class DyadicIntervals {
 	
 	protected int levels;
-	protected CountMin[] cmins;
+	protected CountMinSketch[] cmins;
 	protected long u;
 	
-	public DyadicIntervalsCountMin() {	} //To be used with initialize
+	public DyadicIntervals() {	} //To be used with initialize
 	
-	public DyadicIntervalsCountMin(long u, int w, int d) {
+	public DyadicIntervals(long u, int w, int d) {
 		initialize(u, w, d);
 	}
 	
 	public void initialize(long u, int w, int d) {
 		this.levels = BinaryUtils.ceil_log_2_int(u); //ceil ( log_2 (u) )
-		cmins = new CountMin[levels];
+		cmins = new CountMinSketch[levels];
 		for (int i = 0; i < levels; i++) {
-			cmins[i] = new CountMin();
-			cmins[i].initialize(u, w, d);
+			if (1L<<(i+1) <= w) {
+				//The universe can be fitted into an array of size <=w
+				//i is the level. The universe is 2^(i+1)
+				CountMinSketch ecmin = new ExactSmallCountMin(1<<(i+1), intervalLengthInBits(i, levels));
+				cmins[i] = ecmin;
+			} else {
+				CountMin cmin = new CountMin();
+				cmin.initialize(u, w, d);
+				cmins[i] = cmin;
+			}
 		}
 		this.u = u;
 	}
@@ -91,7 +99,7 @@ public class DyadicIntervalsCountMin {
 	}
 	
 	protected long secondChild(long id, int currLevel) {
-		int toAdd = 1<<(intervalLengthInBits(currLevel + 1));
+		long toAdd = 1L<<(intervalLengthInBits(currLevel + 1));
 		return id + toAdd;
 	}
 	
@@ -107,7 +115,7 @@ public class DyadicIntervalsCountMin {
 		int level = (int) splittingNode[1];
 		if (ID == start && ID + intervalLengthInBits(level) - 1 == end) {
 			//The whole splitting node is the range. This also covers the full range [n]
-			if (level == -1) return cmins[0].m;
+			if (level == -1) return cmins[0].m();
 			return cmins[level].queryFrequency(ID);
 		}
 		//Else, we have work to do (branching)

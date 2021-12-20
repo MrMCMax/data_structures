@@ -13,7 +13,7 @@ import io.cucumber.java.en.When;
 
 public class DyadicIntervalsCountMinSteps {
 
-	DyadicIntervalsCountMin dy;
+	DyadicIntervals dy;
 
 	long u;
 	int w, d, u_exp, w_exp;
@@ -28,7 +28,7 @@ public class DyadicIntervalsCountMinSteps {
 
 	List<Long> resultHeavyHitters;
 	
-	public DyadicIntervalsCountMinSteps(DyadicIntervalsCountMin dy) {
+	public DyadicIntervalsCountMinSteps(DyadicIntervals dy) {
 		this.dy = dy;
 	}
 
@@ -61,7 +61,7 @@ public class DyadicIntervalsCountMinSteps {
 	public void anUniverseNTwoToThePowerOf(Integer u_exp) {
 		this.u = 1L << u_exp;
 		this.u_exp = u_exp;
-		this.dy = new DyadicIntervalsCountMin(u, 4, 1);
+		this.dy = new DyadicIntervals(u, 4, 1);
 	}
 
 	@When("we want to know the identifier of all the elements")
@@ -139,7 +139,7 @@ public class DyadicIntervalsCountMinSteps {
 	@Then("There are no more than {int} queries in each of the CountMins")
 	public void thereAreNoMoreThanQueriesInEachOfTheCountMins(Integer int1) {
 		for (int i = 0; i < dy.levels; i++) {
-			assertTrue(dy.cmins[i].nQueries <= int1);
+			assertTrue(dy.cmins[i].nQueries() <= int1);
 		}
 	}
 

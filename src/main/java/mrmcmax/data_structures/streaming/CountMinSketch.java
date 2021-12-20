@@ -19,5 +19,17 @@ public interface CountMinSketch {
 	 * Returns the recorded m.
 	 */
 	long m();
+	
+	/**
+	 * Computes m by adding the values of one array. For debugging purposes.
+	 * @return
+	 */
+	long computeMWithRow();
+	
+	/**
+	 * The number of queries made till now.
+	 * @return The number of queries performed on this CountMinSketch
+	 */
+	long nQueries();
 
 }

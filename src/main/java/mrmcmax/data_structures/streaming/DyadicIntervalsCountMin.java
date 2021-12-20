@@ -3,6 +3,8 @@ package mrmcmax.data_structures.streaming;
 import java.util.LinkedList;
 import java.util.List;
 
+import mrmcmax.data_structures.utils.BinaryUtils;
+
 public class DyadicIntervalsCountMin {
 	
 	protected int levels;
@@ -16,7 +18,7 @@ public class DyadicIntervalsCountMin {
 	}
 	
 	public void initialize(long u, int w, int d) {
-		this.levels = 64 - Long.numberOfLeadingZeros(u - 1); //ceil ( log_2 (u) )
+		this.levels = BinaryUtils.ceil_log_2_int(u); //ceil ( log_2 (u) )
 		cmins = new CountMin[levels];
 		for (int i = 0; i < levels; i++) {
 			cmins[i] = new CountMin();
@@ -30,8 +32,12 @@ public class DyadicIntervalsCountMin {
 	 * @param level
 	 * @return
 	 */
-	public int intervalLengthInBits(int level) {
+	public static int intervalLengthInBits(int level, int levels) {
 		return levels - (level + 1);
+	}
+	
+	private int intervalLengthInBits(int level) {
+		return intervalLengthInBits(level, this.levels);
 	}
 	
 	/**
@@ -43,7 +49,11 @@ public class DyadicIntervalsCountMin {
 	 */
 	public long identifier(int level, long element) {
 		//We have to set to zero the LSB bits. We can do a right shift and then a left shift.
-		int nBits = intervalLengthInBits(level);
+		return identifier(level, element, this.levels);
+	}
+	
+	public static long identifier(int level, long element, int levels) {
+		int nBits = intervalLengthInBits(level, levels);
 		return (element >>> (nBits)) << nBits;
 	}
 
@@ -64,7 +74,7 @@ public class DyadicIntervalsCountMin {
 	}
 	
 	protected void heavyHitters(int level, long idToQuery, int k, List<Long> heavyHitters) {
-		CountMin cmin = cmins[level];
+		CountMinSketch cmin = cmins[level];
 		long m  = cmin.m();
 		if (cmin.queryFrequency(idToQuery) >= m/k) {
 			//Base case: we have found a heavy hitter

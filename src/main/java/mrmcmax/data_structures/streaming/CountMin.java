@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import mrmcmax.data_structures.streaming.IntegerHashFunction.HashFunctionInstance;
 
-public class CountMin {
+public class CountMin implements CountMinSketch {
 	
 	protected int d; //Number of functions
 	protected int w; //Range of the hash functions
@@ -20,7 +20,7 @@ public class CountMin {
 	
 	protected int nQueries = 0; //For debugging purposes: Number of frequency queries performed till now
 	
-	protected int counters[][]; //data structure of counters!
+	protected long counters[][]; //data structure of counters!
 	
 	public CountMin() {
 		//dude
@@ -45,13 +45,14 @@ public class CountMin {
 		for (int i = 0; i < d; i++) {
 			hashes[i] = strongHashFunction.getInstance();
 		}
-		counters = new int[d][w]; //Java initializes them to zeros
+		counters = new long[d][w]; //Java initializes them to zeros
 	}
 	
 	/**
 	 * Processes an element of the stream
 	 * @param element
 	 */
+	@Override
 	public void accept(long element) {
 		int hash;
 		for (int i = 0; i < d; i++) {
@@ -66,9 +67,10 @@ public class CountMin {
 	 * @param element the element to estimate the frequency of
 	 * @return the estimated frequency.
 	 */
-	public int queryFrequency(long element) {
+	@Override
+	public long queryFrequency(long element) {
 		int hash = (int) hashes[0].hash(element);
-		int countMin = counters[0][hash];
+		long countMin = counters[0][hash];
 		for (int i = 1; i < d; i++) {
 			hash = (int) hashes[i].hash(element);
 			if (counters[i][hash] < countMin) {
@@ -82,6 +84,7 @@ public class CountMin {
 	/**
 	 * Returns the recorded m.
 	 */
+	@Override
 	public long m() {
 		return m;
 	}
@@ -99,6 +102,8 @@ public class CountMin {
 	}
 	
 	public static void main(String[] args) {
+		System.out.println("Int max value: " + Integer.MAX_VALUE);
+		System.out.println("Long max value: " + Long.MAX_VALUE);
 		CountMin cmin = new CountMin();
 		for (int i = 0; i < cmin.d; i++) {
 			cmin.hashes[i].printParameters();

@@ -21,8 +21,8 @@ public class CountMinSteps {
 	int w, d;
 	
 	int nextElement;
-	int[][] currentCounters;
-	int resultQuery;
+	long[][] currentCounters;
+	long resultQuery;
 	
 	public CountMinSteps(CountMin cm) {
 		this.cmin = cm;
@@ -75,7 +75,7 @@ public class CountMinSteps {
 
 	@Given("The current state of the CountMin is known")
 	public void theCurrentStateOfTheCountMinIsKnown() {
-		currentCounters = new int[d][w];
+		currentCounters = new long[d][w];
 		for (int i = 0; i < d; i++) {
 			System.arraycopy(cmin.counters[i], 0, currentCounters[i], 0, w);
 		}

@@ -60,6 +60,7 @@ public class RangeQueriesSteps {
 	@Then("The final result is at least {long}")
 	public void theFinalResultIsAtLeast(Long int1) {
 		long sum = dy.rangeQuery(start, end);
-		assertEquals(sum, int1, "Expected total sum " + int1 + " but found " + sum);
+		assertTrue(sum >= int1, "Expected total sum " + int1 + " but found " + sum);
+		System.out.println("Actual sum: " + sum + ", compared to the real one: " + int1);
 	}
 }

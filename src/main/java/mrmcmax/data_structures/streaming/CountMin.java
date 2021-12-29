@@ -53,7 +53,7 @@ public class CountMin implements CountMinSketch {
 	 * @param element
 	 */
 	@Override
-	public void accept(long element) {
+	public void update(long element) {
 		int hash;
 		for (int i = 0; i < d; i++) {
 			hash = (int) hashes[i].hash(element);
@@ -120,7 +120,7 @@ public class CountMin implements CountMinSketch {
 		long t1 = System.currentTimeMillis();
 		for (int i = 0; i < 1000; i++) {
 			int random = randomInts.next();
-			cmin.accept(random);
+			cmin.update(random);
 			if (random == 50) n50++;
 			else if (random == 60) n60++;
 			else if (random == 101) n101++;

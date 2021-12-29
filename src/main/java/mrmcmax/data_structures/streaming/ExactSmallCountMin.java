@@ -31,7 +31,7 @@ public class ExactSmallCountMin implements CountMinSketch {
 	}
 	
 	@Override
-	public void accept(long element) {
+	public void update(long element) {
 		int ID = ID(element);
 		counters[ID]++;
 		m++;

@@ -6,7 +6,7 @@ public interface CountMinSketch {
 	 * Processes an element of the stream
 	 * @param element
 	 */
-	void accept(long element);
+	void update(long element);
 
 	/**
 	 * Returns the estimated frequency of an element.

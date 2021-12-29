@@ -83,7 +83,7 @@ public class CountMinSteps {
 
 	@When("The CountMin hashes the next element")
 	public void theCountMinHashesTheNextElement() {
-		failIfException(() -> cmin.accept(nextElement));
+		failIfException(() -> cmin.update(nextElement));
 	}
 
 	@Then("The counters increase by one in each row of the CountMin")

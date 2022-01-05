@@ -105,7 +105,7 @@ public class CountSketch implements FrequencySketch {
 	}
 	
 	/**
-	 * For debugging purposes, adds all the frequencies up, to m.
+	 * Does not work with CountSketch. Should subspecify the interface
 	 * @param args
 	 */
 	public long computeMWithRow() {

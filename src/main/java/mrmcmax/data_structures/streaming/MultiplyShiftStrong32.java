@@ -21,6 +21,8 @@ public class MultiplyShiftStrong32 extends IntegerHashFunction {
 		if (rangeIsAPowerOf2) {
 			rangeExponent = Long.numberOfTrailingZeros(rangeSize);
 			//System.out.println("The range is a power of 2. It is 2 to the " + rangeExponent);
+		} else {
+			System.out.println("Warning: the range is not a power of two, instead is " + rangeSize);
 		}
 	}
 	

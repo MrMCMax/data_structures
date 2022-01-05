@@ -10,7 +10,7 @@ import mrmcmax.data_structures.utils.BinaryUtils;
 public class DyadicIntervals {
 	
 	protected int levels;
-	protected CountMinSketch[] cmins;
+	protected FrequencySketch[] cmins;
 	protected long u;
 	
 	public DyadicIntervals() {	} //To be used with initialize
@@ -21,12 +21,12 @@ public class DyadicIntervals {
 	
 	public void initialize(long u, int w, int d) {
 		this.levels = BinaryUtils.ceil_log_2_int(u); //ceil ( log_2 (u) )
-		cmins = new CountMinSketch[levels];
+		cmins = new FrequencySketch[levels];
 		for (int i = 0; i < levels; i++) {
 			if (1L<<(i+1) <= w) {
 				//The universe can be fitted into an array of size <=w
 				//i is the level. The universe is 2^(i+1)
-				CountMinSketch ecmin = new ExactSmallCountMin(1<<(i+1), intervalLengthInBits(i, levels));
+				FrequencySketch ecmin = new ExactSmallCountMin(1<<(i+1), intervalLengthInBits(i, levels));
 				cmins[i] = ecmin;
 			} else {
 				CountMin cmin = new CountMin();
@@ -84,7 +84,7 @@ public class DyadicIntervals {
 	}
 	
 	protected void heavyHitters(int level, long idToQuery, int k, List<Long> heavyHitters) {
-		CountMinSketch cmin = cmins[level];
+		FrequencySketch cmin = cmins[level];
 		long m  = cmin.m();
 		if (cmin.queryFrequency(idToQuery) >= m/k) {
 			//Base case: we have found a heavy hitter

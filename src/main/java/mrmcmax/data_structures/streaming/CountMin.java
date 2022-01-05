@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import mrmcmax.data_structures.streaming.IntegerHashFunction.HashFunctionInstance;
 
-public class CountMin implements CountMinSketch {
+public class CountMin implements FrequencySketch {
 	
 	protected int d; //Number of functions
 	protected int w; //Range of the hash functions

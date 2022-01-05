@@ -1,6 +1,6 @@
 package mrmcmax.data_structures.streaming;
 
-public interface CountMinSketch {
+public interface FrequencySketch {
 
 	/**
 	 * Processes an element of the stream

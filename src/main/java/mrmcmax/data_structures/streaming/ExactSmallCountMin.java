@@ -1,6 +1,6 @@
 package mrmcmax.data_structures.streaming;
 
-public class ExactSmallCountMin implements CountMinSketch {
+public class ExactSmallCountMin implements FrequencySketch {
 	
 	protected int u;
 	protected int intervalBits;

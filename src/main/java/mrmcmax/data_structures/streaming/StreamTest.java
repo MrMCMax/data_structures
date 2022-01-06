@@ -9,7 +9,7 @@ public class StreamTest {
 	public static final int UNIVERSE = 1<<16;
 	public static final int RANGE = 1<<10;
 	public static final int MULTIPLIER = 4;
-	public static final int STREAM_LENGTH = 5000000; //to change to 500000
+	public static final int STREAM_LENGTH = 500000; //to change to 500000
 	
 	public static final int HH1 = 2;
 	public static final int HH2 = 3;

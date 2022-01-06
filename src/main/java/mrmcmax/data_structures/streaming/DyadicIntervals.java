@@ -2,8 +2,6 @@ package mrmcmax.data_structures.streaming;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 import mrmcmax.data_structures.utils.BinaryUtils;
 
@@ -205,11 +203,6 @@ public class DyadicIntervals {
 			//We have reached the leaf of the predecessor. Nothing else to do
 			return sum;
 		}
-	}
-	
-	public void asdf() {
-		TreeSet ts;
-		TreeMap tm;
 	}
 }
 

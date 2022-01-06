@@ -1,7 +1,5 @@
 package mrmcmax.data_structures.streaming;
 
-import java.util.function.Function;
-
 public abstract class IntegerHashFunction {
 
 	protected long u;

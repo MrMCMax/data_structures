@@ -3,6 +3,14 @@ package mrmcmax.data_structures.streaming;
 public interface FrequencySketch {
 
 	/**
+	 * Creates a new FrequencySketch over the specified universe, with the specified range and multiplier
+	 * @param universe
+	 * @param range
+	 * @param multiplier
+	 */
+	void initialize(long universe, int range, int multiplier);
+	
+	/**
 	 * Processes an element of the stream
 	 * @param element
 	 */

@@ -2,7 +2,6 @@ package mrmcmax.data_structures.streaming;
 
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Function;
 
 public class MultiplyModPrimeStrong extends IntegerHashFunction {
 	

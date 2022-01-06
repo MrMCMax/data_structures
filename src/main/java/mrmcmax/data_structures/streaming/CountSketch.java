@@ -82,7 +82,7 @@ public class CountSketch implements FrequencySketch {
 		Arrays.sort(frequencies);
 		long ret = 0;
 		int half = (int)(d/2);
-		if (d % 2 == 0) {
+		if (d % 2 == 1) {
 			ret = frequencies[half+1];
 		} else {
 			ret += (frequencies[half] + frequencies[half + 1]) / 2;

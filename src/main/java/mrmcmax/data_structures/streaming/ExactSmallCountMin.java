@@ -25,6 +25,10 @@ public class ExactSmallCountMin implements FrequencySketch {
 		counters = new long[u];
 		this.u = u;
 	}
+	
+	public void initialize(long u, int w, int d) {
+		initialize((int) u);
+	}
 
 	protected int ID(long element) {
 		return (int) (element >>> intervalBits);

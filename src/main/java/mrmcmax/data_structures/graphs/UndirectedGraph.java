@@ -78,7 +78,7 @@ public class UndirectedGraph extends DirectedGraph {
 	}
 	
 	public HashSet<TwoEndpointEdge> edgeSet() {
-		HashSet<TwoEndpointEdge> edgeSet = new HashSet<>(this.getNumEdges());
+		HashSet<TwoEndpointEdge> edgeSet = new HashSet<>(this.m());
 		Iterator<TwoEndpointEdge> edgeIterator = edgeIterator();
 		while (edgeIterator.hasNext()) {
 			edgeSet.add(edgeIterator.next());

@@ -47,7 +47,8 @@ public class DirectedGraph implements Graph {
 		q = new ArrayLimitQueue<>(Integer.class, numVertices);
 	}
 	
-	public int getNumVertices() {
+	@Override
+	public int n() {
 		return numVertices;
 	}
 
@@ -63,7 +64,8 @@ public class DirectedGraph implements Graph {
 		numEdges++;
 	}
 	
-	public int getNumEdges() {
+	@Override
+	public int m() {
 		return numEdges;
 	}
 	

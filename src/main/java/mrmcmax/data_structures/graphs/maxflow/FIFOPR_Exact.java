@@ -90,10 +90,10 @@ public class FIFOPR_Exact extends FlowAlgorithm {
 	@Override
 	public long maxFlow(ResidualGraphList g) {
 		this.g = g;
-		this.n = g.getNumVertices();
+		this.n = g.n();
 		this.s = g.getSource();
 		this.t = g.getSink();
-		int m = g.getNumEdges();
+		int m = g.m();
 		this.GLOBAL_RELABEL_FREQ = n;
 		// Set up data structures. This method can be overriden for
 		// different data structure choices.

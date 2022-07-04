@@ -17,8 +17,8 @@ public class BasicDijkstra implements Dijkstra {
 	private List<Integer> parents;
 	
 	private void createDataStructures(DirectedGraph g) {
-		distances = new ArrayList<Integer>(Collections.nCopies(g.getNumVertices(), Integer.MAX_VALUE));
-		parents = new ArrayList<Integer>(Collections.nCopies(g.getNumVertices(), -1));
+		distances = new ArrayList<Integer>(Collections.nCopies(g.n(), Integer.MAX_VALUE));
+		parents = new ArrayList<Integer>(Collections.nCopies(g.n(), -1));
 	}
 
 	public void computeDijkstra(DirectedGraph g, int s) {
@@ -26,7 +26,7 @@ public class BasicDijkstra implements Dijkstra {
 		distances.set(s, 0);
 		Set<Integer> S = new HashSet<>();
 		Set<Integer> V = new HashSet<>();
-		for (int i = 0; i < g.getNumVertices(); i++) {
+		for (int i = 0; i < g.n(); i++) {
 			V.add(i);
 		}
 		do {

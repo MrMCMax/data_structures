@@ -22,9 +22,9 @@ public class BinaryHeapDijkstra implements Dijkstra {
 	public BinaryHeapDijkstra() {}
 	
 	private void createDataStructure(DirectedGraph g) {
-		distances = new BinaryPlungeHeap<Integer>(g.getNumVertices());
-		shortestPathParents = new ArrayList<Integer>(Collections.nCopies(g.getNumVertices(), -1));
-		shortestDistances = new ArrayList<Integer>(Collections.nCopies(g.getNumVertices(), -1));
+		distances = new BinaryPlungeHeap<Integer>(g.n());
+		shortestPathParents = new ArrayList<Integer>(Collections.nCopies(g.n(), -1));
+		shortestDistances = new ArrayList<Integer>(Collections.nCopies(g.n(), -1));
 	}
 
 	@Override

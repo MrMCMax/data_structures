@@ -46,7 +46,7 @@ public class ChinesePostmanExample {
 		System.out.println("Odd degree vertices: ");
 		List<Integer> oddDegreeVertices = g.getOddDegreeVertices();
 		System.out.println(oddDegreeVertices);
-		int[] vertices = new int[g.getNumVertices()];
+		int[] vertices = new int[g.n()];
 		for (int i = 0; i < vertices.length; i++)
 			vertices[i] = i;
 		for (Integer source : oddDegreeVertices) {

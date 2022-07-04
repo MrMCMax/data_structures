@@ -107,10 +107,10 @@ public class HighestVertexGapRelabellingStack extends FlowAlgorithm {
 	@Override
 	public long maxFlow(ResidualGraphList g) {
 		this.g = g;
-		this.n = g.getNumVertices();
+		this.n = g.n();
 		this.s = g.getSource();
 		this.t = g.getSink();
-		this.m = g.getNumEdges();
+		this.m = g.m();
 		this.GLOBAL_RELABEL_FREQ = m;
 		// Set up data structures. This method can be overriden for
 		// different data structure choices.

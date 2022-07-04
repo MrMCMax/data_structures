@@ -106,10 +106,10 @@ public class HV_Gap_Gl_True_Exact_Init extends FlowAlgorithm {
 	@Override
 	public long maxFlow(ResidualGraphList g) {
 		this.g = g;
-		this.n = g.getNumVertices();
+		this.n = g.n();
 		this.s = g.getSource();
 		this.t = g.getSink();
-		this.m = g.getNumEdges();
+		this.m = g.m();
 		// Set up data structures. This method can be overriden for
 		// different data structure choices.
 		initDataStructures();

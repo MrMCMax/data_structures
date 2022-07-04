@@ -100,7 +100,7 @@ public class HighestVertex1 extends FlowAlgorithm {
 	@Override
 	public long maxFlow(ResidualGraphList g) {
 		this.g = g;
-		this.n = g.getNumVertices();
+		this.n = g.n();
 		this.s = g.getSource();
 		this.t = g.getSink();
 		// Set up data structures. This method can be overriden for

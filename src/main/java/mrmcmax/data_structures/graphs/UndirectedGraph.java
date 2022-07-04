@@ -1,6 +1,8 @@
 package mrmcmax.data_structures.graphs;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 
 public class UndirectedGraph extends DirectedGraph {
 	
@@ -32,5 +34,55 @@ public class UndirectedGraph extends DirectedGraph {
 			}
 		}
 		return kn;
+	}
+	
+	/**
+	 * Iterator over the edges of the graph, in the order
+	 * defined by the adjacency list representation
+	 * @return
+	 */
+	public Iterator<TwoEndpointEdge> edgeIterator() {
+		return new Iterator<TwoEndpointEdge>() {
+
+			private int v;
+			private Iterator<OneEndpointEdge> adj;
+			
+			//Instance initialization block: where we initialize v and adj
+			{
+				v = 0;
+				adj = array.get(v).iterator();
+			}
+			
+			@Override
+			public boolean hasNext() {
+				if (v < array.size() - 1) {
+					return true;
+				} else if (v == array.size() - 1) {
+					return adj.hasNext();
+				} else return false;
+			}
+
+			@Override
+			public TwoEndpointEdge next() {
+				OneEndpointEdge edge;
+				if (adj.hasNext()) {
+					edge = adj.next();
+					return new TwoEndpointEdge(v, edge.endVertex);
+				} else {
+					v++;
+					adj = array.get(v).iterator();
+					return next(); //Try again
+				}
+			}
+		};
+	}
+	
+	public HashSet<TwoEndpointEdge> edgeSet() {
+		HashSet<TwoEndpointEdge> edgeSet = new HashSet<>(this.getNumEdges());
+		Iterator<TwoEndpointEdge> edgeIterator = edgeIterator();
+		while (edgeIterator.hasNext()) {
+			edgeSet.add(edgeIterator.next());
+		}
+		return edgeSet;
 	}
 }

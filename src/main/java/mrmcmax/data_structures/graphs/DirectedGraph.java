@@ -164,6 +164,18 @@ public class DirectedGraph implements Graph {
 		return false;
 	}
 	
+	public int[][] getAdjacencyMatrix() {
+		int[][] matrix = new int[numVertices][numVertices];
+		Iterator<ArrayList<OneEndpointEdge>> vertices = array.iterator();
+		for (int i = 0; i < numVertices; i++) {
+			ArrayList<OneEndpointEdge> adj = vertices.next();
+			for (OneEndpointEdge edge : adj) {
+				matrix[i][edge.endVertex] = 1;
+			}
+		}
+		return matrix;
+	}
+	
 	public Dijkstra dijkstraInterface(int s) {
 		Dijkstra d = new BasicDijkstra();
 		d.computeDijkstra(this, s);

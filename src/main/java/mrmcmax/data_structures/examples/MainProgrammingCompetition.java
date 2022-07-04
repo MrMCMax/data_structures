@@ -7,13 +7,14 @@ import java.util.stream.LongStream;
 import java.io.IOException;
 
 import mrmcmax.data_structures.graphs.ResidualGraphList;
-import mrmcmax.data_structures.utils.FastReader;
 import mrmcmax.data_structures.utils.Point2D;
 import mrmcmax.data_structures.utils.Utils2D;
+import mrmcmax.persistence.FastReader;
+import mrmcmax.persistence.IFileReader;
 
 public class MainProgrammingCompetition {
 
-	private static FastReader fastReader;
+	private static IFileReader fastReader;
 
 	private static String result;
 

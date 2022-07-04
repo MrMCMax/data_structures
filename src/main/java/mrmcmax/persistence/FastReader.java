@@ -1,10 +1,10 @@
-package mrmcmax.data_structures.utils;
+package mrmcmax.persistence;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class FastReader {
+public class FastReader implements IFileReader {
 	final private int BUFFER_SIZE = 1 << 16;
 	private DataInputStream din;
 	private byte[] buffer;
@@ -22,8 +22,9 @@ public class FastReader {
 		bufferPointer = bytesRead = 0;
 	}
 
+	@Override
 	public String readLine() throws IOException {
-		byte[] buf = new byte[64]; // line length
+		byte[] buf = new byte[512]; // line length
 		int cnt = 0, c;
 		while ((c = read()) != -1) {
 			if (c == '\n')
@@ -33,6 +34,7 @@ public class FastReader {
 		return new String(buf, 0, cnt);
 	}
 
+	@Override
 	public int nextInt() throws IOException {
 		int ret = 0;
 		byte c = read();
@@ -68,6 +70,7 @@ public class FastReader {
 		return ret;
 	}
 
+	@Override
 	public long nextLong() throws IOException {
 		long ret = 0;
 		byte c = read();
@@ -84,6 +87,7 @@ public class FastReader {
 		return ret;
 	}
 
+	@Override
 	public double nextDouble() throws IOException {
 		double ret = 0, div = 1;
 		byte c = read();
@@ -121,6 +125,7 @@ public class FastReader {
 		return buffer[bufferPointer++];
 	}
 
+	@Override
 	public void close() throws IOException {
 		if (din == null)
 			return;

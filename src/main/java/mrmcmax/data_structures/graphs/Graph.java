@@ -11,5 +11,7 @@ public interface Graph {
 	int edgeCount(int v_in, int v_out);
 
 	boolean existsPathBFS(int s, int t);
+	
+	int[][] getAdjacencyMatrix();
 
 }

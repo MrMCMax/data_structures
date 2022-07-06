@@ -57,4 +57,12 @@ public class OneEndpointEdge {
 	public String toString() {
 		return "(" + endVertex + ", " + flow + "/" + capacity + ")";
 	}
+	
+	public boolean equals(Object other) {
+		if (!(other instanceof OneEndpointEdge)) return false;
+		OneEndpointEdge o = (OneEndpointEdge) other;
+		return this.endVertex == o.endVertex &&
+			   this.capacity == o.capacity &&
+			   this.flow == o.flow;
+	}
 }

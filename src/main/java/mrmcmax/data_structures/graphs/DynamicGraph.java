@@ -5,6 +5,7 @@ import java.util.TreeMap;
 
 /**
  * Directed dynamic graph implementation.
+ * It only supports simple, directed graphs (for now)
  * @author max
  *
  */
@@ -54,20 +55,31 @@ public class DynamicGraph implements Graph {
 	
 	@Override
 	public void addEdge(int v_in, int v_out) {
+		checkAddEdge(v_in, v_out);
 		ArrayList<OneEndpointEdge> adj = array.get(v_in);
-		if (adj == null) throw new GraphException("The vertex " + v_in + " does not exist");
-		if (!array.containsKey(v_out)) throw new GraphException("The vertex " + v_out + " does not exist");
 		adj.add(new OneEndpointEdge(v_out));
 	}
 
 	@Override
 	public void addEdge(int v_in, int v_out, int capacity) {
+		checkAddEdge(v_in, v_out);
 		ArrayList<OneEndpointEdge> adj = array.get(v_in);
-		if (adj == null) throw new GraphException("The vertex " + v_in + " does not exist");
-		if (!array.containsKey(v_out)) throw new GraphException("The vertex " + v_out + " does not exist");
 		adj.add(new OneEndpointEdge(v_out, capacity));
 	}
 
+	private void checkAddEdge(int v_in, int v_out) {
+		ArrayList<OneEndpointEdge> adj = array.get(v_in);
+		//Check for v_in existence
+		if (adj == null) throw new GraphException("The vertex " + v_in + " does not exist");
+		//Check for v_out existence
+		if (!array.containsKey(v_out)) throw new GraphException("The vertex " + v_out + " does not exist");
+		//Check for loops
+		if (v_in == v_out) throw new GraphException("Loops are not allowed: in vertex " + v_in);
+		//Check for simple graph
+		if (existsEdge(v_in, v_out)) throw new GraphException("The edge (" + v_in + ", "
+				+ v_out + ") already exists");
+	}
+	
 	@Override
 	public boolean existsEdge(int v_in, int v_out) {
 		ArrayList<OneEndpointEdge> adj = array.get(v_in);
@@ -125,6 +137,7 @@ public class DynamicGraph implements Graph {
 		System.out.println(dyn.array.get(second));
 		System.out.println(dyn.array.get(third));
 		System.out.println(dyn.array.get(fourth));
-		
+		System.out.println(dyn.existsEdge(second, fourth));
+		System.out.println(dyn.existsEdge(second, first));
 	}
 }

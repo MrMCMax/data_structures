@@ -107,7 +107,7 @@ public class DynamicGraph implements Graph {
 	}
 
 	@Override
-	public int[][] getAdjacencyMatrix() {
+	public double[][] getAdjacencyMatrix() {
 		// TODO Auto-generated method stub
 		return null;
 	}

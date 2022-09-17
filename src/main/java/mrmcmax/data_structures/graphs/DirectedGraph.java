@@ -166,8 +166,9 @@ public class DirectedGraph implements Graph {
 		return false;
 	}
 	
-	public int[][] getAdjacencyMatrix() {
-		int[][] matrix = new int[numVertices][numVertices];
+	@Override
+	public double[][] getAdjacencyMatrix() {
+		double[][] matrix = new double[numVertices][numVertices];
 		Iterator<ArrayList<OneEndpointEdge>> vertices = array.iterator();
 		for (int i = 0; i < numVertices; i++) {
 			ArrayList<OneEndpointEdge> adj = vertices.next();

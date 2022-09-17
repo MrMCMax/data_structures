@@ -1,8 +1,10 @@
 package mrmcmax.data_structures.graphs;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+
+import org.apache.commons.math3.linear.MatrixUtils;
+import org.apache.commons.math3.linear.RealMatrix;
 
 public class UndirectedGraph extends DirectedGraph {
 	
@@ -34,6 +36,11 @@ public class UndirectedGraph extends DirectedGraph {
 			}
 		}
 		return kn;
+	}
+	
+	public void spectralDecomposition() {
+		double[][] adjMatrix = getAdjacencyMatrix();
+		RealMatrix A = MatrixUtils.createRealMatrix(adjMatrix);
 	}
 	
 	/**

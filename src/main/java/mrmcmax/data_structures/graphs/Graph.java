@@ -43,9 +43,11 @@ public interface Graph {
 	
 	/**
 	 * Returns the adjacency matrix of the graph.
+	 * The data type is double so as to have direct translation
+	 * to the Apache Commons Math RealMatrix object.
 	 * @return A(G)
 	 */
-	int[][] getAdjacencyMatrix();
+	double[][] getAdjacencyMatrix();
 
 	/**
 	 * Gets the number of vertices of the graph.

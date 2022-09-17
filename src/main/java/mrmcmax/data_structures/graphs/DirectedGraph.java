@@ -33,6 +33,10 @@ public class DirectedGraph implements Graph {
 	private int[] distances;
 	private int[] parents;
 	
+	/************************/
+	/****** SETTERS *********/
+	/************************/
+	
 	public DirectedGraph(int vertices) {
 		numVertices = vertices;
 		this.array = new ArrayList<>(numVertices);
@@ -48,11 +52,6 @@ public class DirectedGraph implements Graph {
 	}
 	
 	@Override
-	public int n() {
-		return numVertices;
-	}
-
-	@Override
 	public void addEdge(int v_in, int v_out) {
 		array.get(v_in).add(new OneEndpointEdge(v_out));
 		numEdges++;
@@ -62,19 +61,6 @@ public class DirectedGraph implements Graph {
 	public void addEdge(int v_in, int v_out, int capacity) {
 		array.get(v_in).add(new OneEndpointEdge(v_out, capacity));
 		numEdges++;
-	}
-	
-	@Override
-	public int m() {
-		return numEdges;
-	}
-	
-	public int getNumUndirectedEdges() {
-		return numEdges / 2;
-	}
-	
-	public List<OneEndpointEdge> getAdjacencyList(int vertex) {
-		return array.get(vertex);
 	}
 	
 	public void setEdgeCapacity(int v_in, int v_out, int capacity) {
@@ -89,6 +75,26 @@ public class DirectedGraph implements Graph {
 		if (!found) {
 			throw new NoSuchElementException("Edge not found");
 		}
+	}
+	
+	
+	/************************/
+	/****** GETTERS *********/
+	/************************/
+	
+	
+	@Override
+	public int n() {
+		return numVertices;
+	}
+
+	@Override
+	public int m() {
+		return numEdges;
+	}
+	
+	public List<OneEndpointEdge> getAdjacencyList(int vertex) {
+		return array.get(vertex);
 	}
 	
 	@Override
@@ -133,6 +139,25 @@ public class DirectedGraph implements Graph {
 	}
 	
 	@Override
+	public double[][] getAdjacencyMatrix() {
+		double[][] matrix = new double[numVertices][numVertices];
+		Iterator<ArrayList<OneEndpointEdge>> vertices = array.iterator();
+		for (int i = 0; i < numVertices; i++) {
+			ArrayList<OneEndpointEdge> adj = vertices.next();
+			for (OneEndpointEdge edge : adj) {
+				matrix[i][edge.endVertex] = 1;
+			}
+		}
+		return matrix;
+	}
+	
+
+	/************************/
+	/***** ALGORITHMS *******/
+	/************************/
+	
+
+	@Override
 	public boolean existsPathBFS(int s, int t) {
 		return existsPathWithConditionBFS(s, t, (c) -> true);
 	}
@@ -164,19 +189,6 @@ public class DirectedGraph implements Graph {
 				return true;
 		}
 		return false;
-	}
-	
-	@Override
-	public double[][] getAdjacencyMatrix() {
-		double[][] matrix = new double[numVertices][numVertices];
-		Iterator<ArrayList<OneEndpointEdge>> vertices = array.iterator();
-		for (int i = 0; i < numVertices; i++) {
-			ArrayList<OneEndpointEdge> adj = vertices.next();
-			for (OneEndpointEdge edge : adj) {
-				matrix[i][edge.endVertex] = 1;
-			}
-		}
-		return matrix;
 	}
 	
 	public Dijkstra dijkstraInterface(int s) {

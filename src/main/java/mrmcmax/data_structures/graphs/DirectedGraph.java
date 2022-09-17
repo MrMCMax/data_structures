@@ -151,6 +151,13 @@ public class DirectedGraph implements Graph {
 		return matrix;
 	}
 	
+	public double[] getDegreeSequence() {
+		double[] d = new double[numVertices];
+		for (int i = 0; i < numVertices; i++) {
+			d[i] = array.get(i).size();
+		}
+		return d;
+	}
 
 	/************************/
 	/***** ALGORITHMS *******/

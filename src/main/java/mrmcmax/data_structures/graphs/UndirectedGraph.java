@@ -9,6 +9,10 @@ import org.apache.commons.math3.linear.RealMatrix;
 
 public class UndirectedGraph extends DirectedGraph {
 	
+	/************************/
+	/****** SETTERS *********/
+	/************************/
+	
 	public UndirectedGraph(int vertices) {
 		super(vertices);
 	}
@@ -39,12 +43,11 @@ public class UndirectedGraph extends DirectedGraph {
 		return kn;
 	}
 	
-	public EigenDecomposition spectralDecomposition() {
-		double[][] adjMatrix = getAdjacencyMatrix();
-		RealMatrix A = MatrixUtils.createRealMatrix(adjMatrix);
-		EigenDecomposition eig = new EigenDecomposition(A);
-		return eig;
-	}
+
+	/************************/
+	/****** GETTERS *********/
+	/************************/
+	
 	
 	/**
 	 * Iterator over the edges of the graph, in the order
@@ -94,5 +97,32 @@ public class UndirectedGraph extends DirectedGraph {
 			edgeSet.add(edgeIterator.next());
 		}
 		return edgeSet;
+	}
+	
+	public RealMatrix getLaplacianMatrix() {
+		double[][] adjMatrix = getAdjacencyMatrix();
+		RealMatrix A = MatrixUtils.createRealMatrix(adjMatrix);
+		double[] degreeSequence = getDegreeSequence();
+		RealMatrix degreeMatrix = MatrixUtils.createRealDiagonalMatrix(degreeSequence);
+		RealMatrix laplacian = degreeMatrix.subtract(A);
+		return laplacian;
+	}
+	
+	/************************/
+	/***** ALGORITHMS *******/
+	/************************/
+	
+	public EigenDecomposition spectralDecomposition() {
+		double[][] adjMatrix = getAdjacencyMatrix();
+		RealMatrix A = MatrixUtils.createRealMatrix(adjMatrix);
+		EigenDecomposition eig = new EigenDecomposition(A);
+		return eig;
+	}
+	
+	public EigenDecomposition spectralDecompositionLaplacian() {
+		RealMatrix laplacian = getLaplacianMatrix();
+		EigenDecomposition eig = new EigenDecomposition(laplacian);
+		return eig;
+		
 	}
 }

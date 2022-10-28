@@ -1,6 +1,6 @@
 package mrmcmax.data_structures.examples;
 
-import mrmcmax.data_structures.utils.Point2D;
+import mrmcmax.utils.Point2D;
 
 public class Wifi {
 	public Point2D pos;

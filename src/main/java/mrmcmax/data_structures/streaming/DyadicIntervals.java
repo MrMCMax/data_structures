@@ -3,7 +3,7 @@ package mrmcmax.data_structures.streaming;
 import java.util.LinkedList;
 import java.util.List;
 
-import mrmcmax.data_structures.utils.BinaryUtils;
+import mrmcmax.utils.BinaryUtils;
 
 public class DyadicIntervals {
 	

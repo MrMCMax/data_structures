@@ -7,10 +7,10 @@ import java.util.stream.LongStream;
 import java.io.IOException;
 
 import mrmcmax.data_structures.graphs.ResidualGraphList;
-import mrmcmax.data_structures.utils.Point2D;
-import mrmcmax.data_structures.utils.Utils2D;
 import mrmcmax.persistence.FastReader;
 import mrmcmax.persistence.IFileReader;
+import mrmcmax.utils.Point2D;
+import mrmcmax.utils.Utils2D;
 
 public class MainProgrammingCompetition {
 

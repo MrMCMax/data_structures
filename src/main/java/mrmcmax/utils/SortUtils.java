@@ -1,4 +1,4 @@
-package mrmcmax.data_structures.utils;
+package mrmcmax.utils;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;

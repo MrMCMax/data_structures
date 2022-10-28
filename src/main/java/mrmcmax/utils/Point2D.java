@@ -1,4 +1,4 @@
-package mrmcmax.data_structures.utils;
+package mrmcmax.utils;
 
 public class Point2D {
 	public int x;

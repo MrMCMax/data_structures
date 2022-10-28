@@ -1,4 +1,4 @@
-package mrmcmax.data_structures.utils;
+package mrmcmax.utils;
 
 import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;

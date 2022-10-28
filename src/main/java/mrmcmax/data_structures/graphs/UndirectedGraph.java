@@ -1,5 +1,6 @@
 package mrmcmax.data_structures.graphs;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -31,10 +32,10 @@ public class UndirectedGraph extends DirectedGraph {
 		numEdges++;
 	}
 	
-	public static Graph completeUndirectedGraph(int n) {
-		Graph kn = new DirectedGraph(n);
+	public static UndirectedGraph completeUndirectedGraph(int n) {
+		UndirectedGraph kn = new UndirectedGraph(n);
 		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
+			for (int j = i; j < n; j++) {
 				if (j != i) {
 					kn.addEdge(i, j);
 				}
@@ -108,6 +109,22 @@ public class UndirectedGraph extends DirectedGraph {
 		return laplacian;
 	}
 	
+	public double[][] getLaplacianMatrixData() {
+		return getLaplacianMatrix().getData();
+	}
+
+	public RealMatrix getInverseLaplacian() {
+		EigenDecomposition spectre = spectralDecompositionLaplacian();
+		double[] eigenvalues_i = spectre.getRealEigenvalues();
+		double[] eigenvalues_sorted = spectre.getRealEigenvalues();
+		Arrays.sort(eigenvalues_sorted);
+		double[][] eigenvectors = new double[numVertices][numVertices];
+		for (int i = 0; i < numVertices; i++) {
+			//eigenvectors[i] = spectre.getEigenvector(eigenvalues_sorted[i]);
+		}
+		return null;
+	}
+	
 	/************************/
 	/***** ALGORITHMS *******/
 	/************************/
@@ -123,6 +140,11 @@ public class UndirectedGraph extends DirectedGraph {
 		RealMatrix laplacian = getLaplacianMatrix();
 		EigenDecomposition eig = new EigenDecomposition(laplacian);
 		return eig;
-		
 	}
 }
+
+
+
+
+
+
